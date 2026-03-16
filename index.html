@@ -19,20 +19,10 @@
       --text-muted: #6b6b75;
       --border: rgba(255, 255, 255, 0.06);
       --shadow: rgba(0, 0, 0, 0.4);
-      --codewars: #b9171b;
-      --leetcode: #ffa116;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       background: var(--bg-primary);
       color: var(--text-primary);
@@ -41,7 +31,7 @@
       overflow-x: hidden;
     }
 
-    /* Animated Background */
+    /* Background */
     .bg-canvas {
       position: fixed;
       top: 0;
@@ -66,13 +56,7 @@
       animation: bgFloat 20s ease-in-out infinite;
     }
 
-    /* Floating particles */
-    .particles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-
+    .particles { position: absolute; width: 100%; height: 100%; }
     .particle {
       position: absolute;
       width: 4px;
@@ -81,6 +65,31 @@
       border-radius: 50%;
       opacity: 0.3;
       animation: float 15s infinite;
+    }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    .glow-orb:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      background: var(--accent);
+      top: 20%;
+      left: 10%;
+    }
+
+    .glow-orb:nth-child(2) {
+      width: 250px;
+      height: 250px;
+      background: var(--accent-secondary);
+      bottom: 20%;
+      right: 10%;
+      animation-delay: -4s;
     }
 
     @keyframes float {
@@ -96,7 +105,12 @@
       66% { transform: translate(-1%, 1%) rotate(-1deg); }
     }
 
-    /* Navigation */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.5; }
+    }
+
+    /* Nav */
     nav {
       position: fixed;
       top: 0;
@@ -113,10 +127,7 @@
       transition: all 0.3s ease;
     }
 
-    nav.scrolled {
-      padding: 14px 40px;
-      background: rgba(13, 13, 18, 0.95);
-    }
+    nav.scrolled { padding: 14px 40px; background: rgba(13, 13, 18, 0.95); }
 
     .nav-logo {
       font-family: 'Space Grotesk', sans-serif;
@@ -129,9 +140,7 @@
       gap: 10px;
     }
 
-    .nav-logo span {
-      color: var(--accent);
-    }
+    .nav-logo span { color: var(--accent); }
 
     .nav-links {
       display: flex;
@@ -159,15 +168,10 @@
       transition: width 0.3s ease;
     }
 
-    .nav-links a:hover {
-      color: var(--text-primary);
-    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { width: 100%; }
 
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* Hero Section */
+    /* Hero */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -176,9 +180,7 @@
       position: relative;
     }
 
-    .hero-content {
-      max-width: 900px;
-    }
+    .hero-content { max-width: 900px; }
 
     .hero-greeting {
       font-size: 16px;
@@ -197,11 +199,8 @@
       margin-bottom: 20px;
     }
 
-    .hero-name .highlight {
-      color: var(--accent);
-    }
+    .hero-name .highlight { color: var(--accent); }
 
-    /* Typewriter */
     .typewriter {
       display: inline;
       border-right: 2px solid var(--accent);
@@ -218,7 +217,6 @@
       color: var(--text-secondary);
       font-weight: 400;
       margin-bottom: 36px;
-      min-height: 40px;
     }
 
     .hero-desc {
@@ -272,7 +270,7 @@
       color: var(--accent);
     }
 
-    /* Stats Section */
+    /* Stats */
     .stats {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -287,36 +285,41 @@
       transition: all 0.3s ease;
       cursor: pointer;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
+    .stat-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-item:hover::before { transform: scaleX(1); }
     .stat-item:hover {
-      transform: translateY(-5px) scale(1.02);
+      transform: translateY(-5px);
       border-color: var(--accent);
       box-shadow: 0 15px 30px rgba(232, 74, 95, 0.15);
     }
 
-    .stat-icon {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
+    .stat-icon { font-size: 24px; margin-bottom: 8px; color: var(--accent); }
     .stat-number {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 28px;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--text-primary);
       margin-bottom: 4px;
     }
+    .stat-label { font-size: 12px; color: var(--text-muted); }
 
-    .stat-label {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* Section Styles */
-    section {
-      padding: 100px 40px;
-    }
+    /* Sections */
+    section { padding: 100px 40px; }
 
     .section-header {
       display: flex;
@@ -331,17 +334,14 @@
       font-weight: 700;
     }
 
-    .section-title span {
-      color: var(--accent);
-    }
-
+    .section-title span { color: var(--accent); }
     .section-subtitle {
       color: var(--text-muted);
       margin-top: 12px;
       font-size: 16px;
     }
 
-    /* About Section */
+    /* About */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 2fr;
@@ -372,9 +372,7 @@
       opacity: 0.3;
     }
 
-    @keyframes rotate {
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes rotate { 100% { transform: rotate(360deg); } }
 
     .about-content h3 {
       font-size: 24px;
@@ -413,12 +411,47 @@
       transform: translateX(5px);
     }
 
-    .highlight-item i {
-      color: var(--accent);
-      font-size: 20px;
+    .highlight-item i { color: var(--accent); font-size: 20px; }
+
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
     }
 
-    /* Skills Section */
+    .tool-card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 15px 30px rgba(232, 74, 95, 0.1);
+    }
+
+    .tool-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .tool-name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .tool-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Skills */
     .skills-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -457,16 +490,9 @@
       font-size: 20px;
     }
 
-    .skill-title {
-      font-size: 18px;
-      font-weight: 600;
-    }
+    .skill-title { font-size: 18px; font-weight: 600; }
 
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .skill-tag {
       padding: 8px 14px;
@@ -485,7 +511,7 @@
       transform: scale(1.05);
     }
 
-    /* Projects Section */
+    /* Projects */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -514,10 +540,7 @@
       transition: transform 0.4s ease;
     }
 
-    .project-card:hover::before {
-      transform: scaleX(1);
-    }
-
+    .project-card:hover::before { transform: scaleX(1); }
     .project-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 25px 50px var(--shadow);
@@ -538,10 +561,7 @@
       line-height: 1;
     }
 
-    .project-links {
-      display: flex;
-      gap: 10px;
-    }
+    .project-links { display: flex; gap: 10px; }
 
     .project-link {
       width: 36px;
@@ -562,11 +582,7 @@
       transform: scale(1.1);
     }
 
-    .project-title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
+    .project-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
 
     .project-desc {
       color: var(--text-secondary);
@@ -574,11 +590,7 @@
       margin-bottom: 16px;
     }
 
-    .project-tech {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .tech-tag {
       padding: 6px 12px;
@@ -589,14 +601,14 @@
       font-weight: 500;
     }
 
-    /* Certifications Section */
-    .certs-grid {
+    /* Achievements */
+    .achievements-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
 
-    .cert-card {
+    .achievement-card {
       background: var(--bg-card);
       border-radius: 16px;
       padding: 28px;
@@ -606,114 +618,48 @@
       overflow: hidden;
     }
 
-    .cert-card::after {
+    .achievement-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, transparent 50%, var(--accent) 50%);
-      opacity: 0.1;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
-    .cert-card:hover {
+    .achievement-card:hover::before { opacity: 0.1; }
+    .achievement-card:hover {
       transform: translateY(-5px);
       border-color: var(--accent);
     }
 
-    .cert-badge {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
+    .achievement-icon {
+      font-size: 36px;
       margin-bottom: 16px;
     }
 
-    .cert-title {
+    .achievement-title {
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 8px;
     }
 
-    .cert-issuer {
+    .achievement-desc {
       font-size: 14px;
-      color: var(--accent);
+      color: var(--text-muted);
       margin-bottom: 12px;
     }
 
-    .cert-status {
+    .achievement-tag {
       display: inline-block;
       padding: 4px 12px;
       background: rgba(232, 74, 95, 0.1);
       color: var(--accent);
       border-radius: 20px;
       font-size: 12px;
-      font-weight: 500;
-    }
-
-    .cert-status.completed {
-      background: rgba(74, 222, 128, 0.1);
-      color: #4ade80;
-    }
-
-    /* Volunteer Section */
-    .volunteer-card {
-      background: var(--bg-card);
-      border-radius: 20px;
-      padding: 36px;
-      border: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 30px;
-      align-items: center;
-      transition: all 0.3s ease;
-    }
-
-    .volunteer-card:hover {
-      border-color: var(--accent);
-    }
-
-    .volunteer-icon {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-    }
-
-    .volunteer-title {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .volunteer-org {
-      color: var(--accent);
-      font-size: 14px;
-      margin-bottom: 12px;
-    }
-
-    .volunteer-hours {
-      display: inline-block;
-      padding: 4px 12px;
-      background: rgba(232, 74, 95, 0.1);
-      color: var(--accent);
-      border-radius: 20px;
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .volunteer-desc {
-      color: var(--text-secondary);
-      line-height: 1.7;
     }
 
     /* Platform Stats */
@@ -738,13 +684,9 @@
       border-color: var(--accent);
     }
 
-    .platform-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-
-    .platform-card.codewars .platform-icon { color: var(--codewars); }
-    .platform-card.leetcode .platform-icon { color: var(--leetcode); }
+    .platform-icon { font-size: 32px; margin-bottom: 12px; }
+    .platform-card.codewars .platform-icon { color: #b9171b; }
+    .platform-card.leetcode .platform-icon { color: #ffa116; }
     .platform-card.kaggle .platform-icon { color: #20BEFF; }
     .platform-card.usaco .platform-icon { color: var(--accent); }
 
@@ -755,9 +697,95 @@
       margin-bottom: 4px;
     }
 
-    .platform-label {
-      font-size: 14px;
-      color: var(--text-muted);
+    .platform-label { font-size: 14px; color: var(--text-muted); }
+
+    /* Volunteer */
+    .volunteer-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 36px;
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 30px;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .volunteer-card:hover { border-color: var(--accent); }
+
+    .volunteer-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+
+    .volunteer-title { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+    .volunteer-org { color: var(--accent); font-size: 14px; margin-bottom: 12px; }
+    .volunteer-hours {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(232, 74, 95, 0.1);
+      color: var(--accent);
+      border-radius: 20px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .volunteer-desc { color: var(--text-secondary); line-height: 1.7; }
+
+    /* Certs */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .cert-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .cert-badge {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .cert-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .cert-issuer { font-size: 14px; color: var(--accent); margin-bottom: 12px; }
+    
+    .cert-status {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(232, 74, 95, 0.1);
+      color: var(--accent);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .cert-status.completed {
+      background: rgba(74, 222, 128, 0.1);
+      color: #4ade80;
     }
 
     /* Timeline */
@@ -808,54 +836,70 @@
       transform: translateX(10px);
     }
 
-    .timeline-date {
-      font-size: 13px;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 8px;
+    .timeline-date { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+    .timeline-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .timeline-org { color: var(--text-secondary); font-size: 14px; margin-bottom: 10px; }
+    .timeline-desc { color: var(--text-muted); font-size: 14px; }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
     }
 
-    .timeline-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 6px;
+    .testimonial-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
     }
 
-    .timeline-org {
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .testimonial-quote {
+      font-size: 16px;
       color: var(--text-secondary);
-      font-size: 14px;
-      margin-bottom: 10px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
     }
 
-    .timeline-desc {
-      color: var(--text-muted);
-      font-size: 14px;
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    /* Contact Section */
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .testimonial-name { font-weight: 600; font-size: 15px; }
+    .testimonial-role { font-size: 13px; color: var(--text-muted); }
+
+    /* Contact */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 50px;
     }
 
-    .contact-info h3 {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
+    .contact-info h3 { font-size: 28px; font-weight: 600; margin-bottom: 20px; }
+    .contact-info p { color: var(--text-secondary); margin-bottom: 30px; line-height: 1.7; }
 
-    .contact-info p {
-      color: var(--text-secondary);
-      margin-bottom: 30px;
-      line-height: 1.7;
-    }
-
-    .contact-methods {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .contact-methods { display: flex; flex-direction: column; gap: 16px; }
 
     .contact-item {
       display: flex;
@@ -886,16 +930,8 @@
       font-size: 18px;
     }
 
-    .contact-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .contact-value {
-      font-size: 15px;
-      font-weight: 500;
-    }
+    .contact-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+    .contact-value { font-size: 15px; font-weight: 500; }
 
     /* Footer */
     footer {
@@ -906,34 +942,22 @@
       font-size: 14px;
     }
 
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+    footer a { color: var(--accent); text-decoration: none; }
 
-    /* Scroll Animation */
+    /* Animations */
     .fade-in {
       opacity: 0;
       transform: translateY(40px);
       transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* Responsive */
     @media (max-width: 1024px) {
-      .skills-container, .certs-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-      .platform-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .skills-container, .certs-grid, .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .platform-stats, .tools-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 768px) {
@@ -943,7 +967,7 @@
       .stats { grid-template-columns: repeat(3, 1fr); }
       section { padding: 60px 20px; }
       .about-grid { grid-template-columns: 1fr; }
-      .skills-container, .certs-grid { grid-template-columns: 1fr; }
+      .skills-container, .certs-grid, .achievements-grid, .tools-grid { grid-template-columns: 1fr; }
       .volunteer-card { grid-template-columns: 1fr; text-align: center; }
       .contact-grid { grid-template-columns: 1fr; }
     }
@@ -951,6 +975,8 @@
 </head>
 <body>
   <div class="bg-canvas">
+    <div class="glow-orb"></div>
+    <div class="glow-orb"></div>
     <div class="particles" id="particles"></div>
   </div>
 
@@ -961,15 +987,17 @@
     </a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
+      <li><a href="#tools">Tools</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
       <li><a href="#certs">Certifications</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
       <p class="hero-greeting fade-in">Hello, I'm</p>
@@ -1027,7 +1055,7 @@
       <div class="platform-card codewars">
         <div class="platform-icon"><i class="fas fa-khanda"></i></div>
         <div class="platform-stat">4 Kyu</div>
-        <div class="platform-label">Codewars Rank</div>
+        <div class="platform-label">Codewars - "Competent"</div>
       </div>
       <div class="platform-card leetcode">
         <div class="platform-icon"><i class="fas fa-code"></i></div>
@@ -1047,7 +1075,7 @@
     </div>
   </section>
 
-  <!-- About Section -->
+  <!-- About -->
   <section id="about">
     <div class="section-header">
       <div>
@@ -1069,14 +1097,14 @@
         </p>
         <p class="fade-in">
           As a USACO Silver division competitor (one of the few middle schoolers at this level), I solve complex 
-          algorithmic problems. I'm also a Codewars 4 Kyu holder (upper tier globally) and actively solve 
-          problems on LeetCode - the same platform used by candidates targeting Google, Meta, and Amazon.
+          algorithmic problems involving <strong>prefix sums, two-pointers, binary search, graph traversal, 
+          and dynamic programming</strong>. The leap from Bronze to Silver is described as "a significant jump in 
+          difficulty" requiring "a thorough understanding of exactly when and how to apply each concept."
         </p>
         <p class="fade-in">
-          Beyond my own learning, I've accumulated 100+ hours of volunteer service at SMARTCore Labs, a Pearland 
-          STEM education center. As a mentor, I've taught Python, HTML, CSS, Blender 3D, and game development 
-          to students of varying ages and skill levels - from young learners in Scratch to advanced teens in AI 
-          and robotics pathways.
+          I'm also a <strong>Codewars 4 Kyu</strong> holder - this ranking is described as "Competent" level, 
+          requiring complex algorithmic thinking and is "on par with many practicing junior developers worldwide." 
+          I've earned 55+ points just for this rank, and it's in the upper tier of the platform's global ranking system.
         </p>
         
         <div class="about-highlights">
@@ -1101,12 +1129,84 @@
     </div>
   </section>
 
-  <!-- Skills Section -->
+  <!-- Tools -->
+  <section id="tools">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title fade-in">Tools & <span>Technologies</span></h2>
+        <p class="section-subtitle fade-in">The technologies I use to build</p>
+      </div>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fab fa-python"></i></div>
+        <div class="tool-name">Python</div>
+        <div class="tool-desc">Primary language for ML & algorithms</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fab fa-js"></i></div>
+        <div class="tool-name">JavaScript</div>
+        <div class="tool-desc">Web development & interactivity</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fab fa-html5"></i></div>
+        <div class="tool-name">HTML/CSS</div>
+        <div class="tool-desc">Frontend web development</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fas fa-code"></i></div>
+        <div class="tool-name">Lua</div>
+        <div class="tool-desc">Roblox game scripting</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fab fa-github"></i></div>
+        <div class="tool-name">GitHub</div>
+        <div class="tool-desc">Version control & collaboration</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fas fa-code-branch"></i></div>
+        <div class="tool-name">Replit</div>
+        <div class="tool-desc">Cloud IDE for projects</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fas fa-database"></i></div>
+        <div class="tool-name">Kaggle</div>
+        <div class="tool-desc">ML competitions & datasets</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fas fa-robot"></i></div>
+        <div class="tool-name">LEGO EV3</div>
+        <div class="tool-desc">Robotics programming</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fas fa-cube"></i></div>
+        <div class="tool-name">Blender</div>
+        <div class="tool-desc">3D modeling & design</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="tool-name">TryHackMe</div>
+        <div class="tool-desc">Cybersecurity practice</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fas fa-terminal"></i></div>
+        <div class="tool-name">VS Code</div>
+        <div class="tool-desc">Code editor</div>
+      </div>
+      <div class="tool-card fade-in">
+        <div class="tool-icon"><i class="fas fa-table"></i></div>
+        <div class="tool-name">Pandas</div>
+        <div class="tool-desc">Data analysis</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
   <section id="skills">
     <div class="section-header">
       <div>
         <h2 class="section-title fade-in">Technical <span>Skills</span></h2>
-        <p class="section-subtitle fade-in">Technologies and tools I work with</p>
+        <p class="section-subtitle fade-in">Areas of expertise</p>
       </div>
     </div>
     <div class="skills-container">
@@ -1133,10 +1233,10 @@
         <div class="skill-list">
           <span class="skill-tag">Supervised Learning</span>
           <span class="skill-tag">TensorFlow</span>
-          <span class="skill-tag">Keras</span>
           <span class="skill-tag">Pandas</span>
           <span class="skill-tag">Scikit-learn</span>
           <span class="skill-tag">NLP Basics</span>
+          <span class="skill-tag">Kaggle</span>
         </div>
       </div>
       
@@ -1217,7 +1317,7 @@
         <div class="skill-list">
           <span class="skill-tag">TMSCA</span>
           <span class="skill-tag">Number Sense</span>
-          <span class="skill-tag">Calculus Prep</span>
+          <span class="skill-tag">Algorithms</span>
           <span class="skill-tag">Logic</span>
           <span class="skill-tag">G&T Program</span>
         </div>
@@ -1225,22 +1325,22 @@
       
       <div class="skill-category fade-in">
         <div class="skill-header">
-          <div class="skill-icon"><i class="fas fa-tools"></i></div>
-          <div class="skill-title">Tools & Platforms</div>
+          <div class="skill-icon"><i class="fas fa-code"></i></div>
+          <div class="skill-title">Competitive Programming</div>
         </div>
         <div class="skill-list">
-          <span class="skill-tag">Replit</span>
-          <span class="skill-tag">VS Code</span>
-          <span class="skill-tag">GitHub</span>
-          <span class="skill-tag">Kaggle</span>
-          <span class="skill-tag">LeetCode</span>
+          <span class="skill-tag">USACO</span>
           <span class="skill-tag">Codewars</span>
+          <span class="skill-tag">LeetCode</span>
+          <span class="skill-tag">Prefix Sums</span>
+          <span class="skill-tag">DP</span>
+          <span class="skill-tag">Graphs</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
+  <!-- Projects -->
   <section id="projects">
     <div class="section-header">
       <div>
@@ -1328,8 +1428,79 @@
     </div>
   </section>
 
-  <!-- Volunteer Section -->
-  <section id="volunteer" style="background: rgba(22, 22, 31, 0.5);">
+  <!-- Achievements -->
+  <section id="achievements" style="background: rgba(22, 22, 31, 0.5);">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title fade-in">Key <span>Achievements</span></h2>
+        <p class="section-subtitle fade-in">Recognition and accomplishments</p>
+      </div>
+    </div>
+    <div class="achievements-grid">
+      <div class="achievement-card fade-in">
+        <div class="achievement-icon">🏆</div>
+        <h4 class="achievement-title">USACO Silver Division</h4>
+        <p class="achievement-desc">
+          One of the few middle schoolers at this level. Requires mastery of prefix sums, 
+          two-pointers, binary search, graphs, and dynamic programming.
+        </p>
+        <span class="achievement-tag">Competitive Programming</span>
+      </div>
+      
+      <div class="achievement-card fade-in">
+        <div class="achievement-icon">🥇</div>
+        <h4 class="achievement-title">TMSCA Top 20 Science</h4>
+        <p class="achievement-desc">
+          State competition top 20 in Science. Part of Pearland Junior High West team 
+          that took 2nd place in sweepstakes among 113 students.
+        </p>
+        <span class="achievement-tag">Mathematics</span>
+      </div>
+      
+      <div class="achievement-card fade-in">
+        <div class="achievement-icon">⚔️</div>
+        <h4 class="achievement-title">Codewars 4 Kyu</h4>
+        <p class="achievement-desc">
+          "Competent" level - upper tier globally. Requires serious algorithmic thinking 
+          and complex CS concepts, on par with many junior developers.
+        </p>
+        <span class="achievement-tag">Coding</span>
+      </div>
+      
+      <div class="achievement-card fade-in">
+        <div class="achievement-icon">🤝</div>
+        <h4 class="achievement-title">100+ Volunteer Hours</h4>
+        <p class="achievement-desc">
+          STEM mentorship at SMARTCore Labs. Taught Python, HTML, CSS, Blender, 
+          game development to students of all ages.
+        </p>
+        <span class="achievement-tag">Community Service</span>
+      </div>
+      
+      <div class="achievement-card fade-in">
+        <div class="achievement-icon">🎮</div>
+        <h4 class="achievement-title">Published Roblox Games</h4>
+        <p class="achievement-desc">
+          Multiple published games with thousands of plays. Custom mechanics, 
+          multiplayer functionality, and engaging gameplay.
+        </p>
+        <span class="achievement-tag">Game Development</span>
+      </div>
+      
+      <div class="achievement-card fade-in">
+        <div class="achievement-icon">🔐</div>
+        <h4 class="achievement-title">AES Encryption Implementation</h4>
+        <p class="achievement-desc">
+          Implemented NIST-approved AES-128 from scratch. Sophisticated project 
+          for middle school level involving cryptographic logic.
+        </p>
+        <span class="achievement-tag">Cybersecurity</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Volunteer -->
+  <section id="volunteer">
     <div class="section-header">
       <div>
         <h2 class="section-title fade-in">Volunteer <span>Experience</span></h2>
@@ -1346,15 +1517,14 @@
           Volunteered over 100 hours across Summer 2025, Winter 2025, and Spring 2026 sessions at a professional 
           STEM education center. Taught Python, HTML, CSS, Blender 3D modeling, and game development to students 
           ranging from young learners using Scratch to advanced teens in AI, robotics, and engineering pathways. 
-          Mentored students through hands-on builds, explained complex concepts clearly, and debugged projects in 
-          real-time. This role demonstrated leadership, communication, and a genuine commitment to making technology 
+          This role demonstrated leadership, communication, and a genuine commitment to making technology 
           education accessible.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Certifications Section -->
+  <!-- Certifications -->
   <section id="certs">
     <div class="section-header">
       <div>
@@ -1368,9 +1538,6 @@
         <h4 class="cert-title">Machine Learning Specialization</h4>
         <p class="cert-issuer">Stanford University & DeepLearning.AI</p>
         <span class="cert-status">In Progress</span>
-        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
-          Covers foundational AI concepts, practical ML skills, building/training/deploying ML models
-        </p>
       </div>
       
       <div class="cert-card fade-in">
@@ -1378,9 +1545,6 @@
         <h4 class="cert-title">IBM AI Developer Professional Certificate</h4>
         <p class="cert-issuer">IBM</p>
         <span class="cert-status">In Progress</span>
-        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
-          AI development, generative AI, deep learning, and real-world application deployment
-        </p>
       </div>
       
       <div class="cert-card fade-in">
@@ -1388,9 +1552,6 @@
         <h4 class="cert-title">Google Cybersecurity Professional Certificate</h4>
         <p class="cert-issuer">Google</p>
         <span class="cert-status">In Progress</span>
-        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
-          Threat analysis, network security, and security operations fundamentals
-        </p>
       </div>
       
       <div class="cert-card fade-in">
@@ -1398,9 +1559,6 @@
         <h4 class="cert-title">TryHackMe Cybersecurity Paths</h4>
         <p class="cert-issuer">TryHackMe</p>
         <span class="cert-status">In Progress</span>
-        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
-          Hands-on cybersecurity learning with SOC analysis, penetration testing, web security
-        </p>
       </div>
       
       <div class="cert-card fade-in">
@@ -1408,9 +1566,6 @@
         <h4 class="cert-title">Codewars 4 Kyu</h4>
         <p class="cert-issuer">Codewars</p>
         <span class="cert-status completed">Achieved</span>
-        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
-          Upper tier global ranking - requires serious algorithmic thinking and complex CS concepts
-        </p>
       </div>
       
       <div class="cert-card fade-in">
@@ -1418,18 +1573,15 @@
         <h4 class="cert-title">USACO Silver Division</h4>
         <p class="cert-issuer">USA Computing Olympiad</p>
         <span class="cert-status completed">Achieved</span>
-        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
-          One of the few middle schoolers at this competitive programming level
-        </p>
       </div>
     </div>
   </section>
 
-  <!-- Experience Section -->
+  <!-- Experience -->
   <section id="experience">
     <div class="section-header">
       <div>
-        <h2 class="section-title fade-in">Experience & <span>Achievements</span></h2>
+        <h2 class="section-title fade-in">Experience & <span>Timeline</span></h2>
         <p class="section-subtitle fade-in">My journey through competitions and learning</p>
       </div>
     </div>
@@ -1484,7 +1636,46 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
+  <!-- Testimonials -->
+  <section id="testimonials" style="background: rgba(22, 22, 31, 0.5);">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title fade-in">What People <span>Say</span></h2>
+        <p class="section-subtitle fade-in">Recommendations and feedback</p>
+      </div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">
+          "Arjun has demonstrated exceptional problem-solving abilities far beyond his grade level. 
+          His understanding of algorithms and data structures rivals many high school students."
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div>
+            <div class="testimonial-name">Ms. Beiker</div>
+            <div class="testimonial-role">FLL Coach, Pearland Junior High</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">
+          "One of the most dedicated young programmers I've seen. His ability to explain complex 
+          concepts to younger students while mentoring at SMARTCore Labs is remarkable."
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><i class="fas fa-user-tie"></i></div>
+          <div>
+            <div class="testimonial-name">SMARTCore Labs</div>
+            <div class="testimonial-role">STEM Education Center</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
   <section id="contact">
     <div class="section-header">
       <div>
@@ -1532,7 +1723,7 @@
   </footer>
 
   <script>
-    // Typewriter effect
+    // Typewriter
     const phrases = [
       "Student Developer",
       "USACO Silver Competitor",
@@ -1547,7 +1738,6 @@
 
     function type() {
       const currentPhrase = phrases[phraseIndex];
-      
       if (isDeleting) {
         typewriter.textContent = currentPhrase.substring(0, charIndex - 1);
         charIndex--;
@@ -1555,9 +1745,7 @@
         typewriter.textContent = currentPhrase.substring(0, charIndex + 1);
         charIndex++;
       }
-
       let typeSpeed = isDeleting ? 50 : 100;
-
       if (!isDeleting && charIndex === currentPhrase.length) {
         typeSpeed = 2000;
         isDeleting = true;
@@ -1566,13 +1754,11 @@
         phraseIndex = (phraseIndex + 1) % phrases.length;
         typeSpeed = 500;
       }
-
       setTimeout(type, typeSpeed);
     }
-
     type();
 
-    // Create floating particles
+    // Particles
     const particlesContainer = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
       const particle = document.createElement('div');
@@ -1583,24 +1769,20 @@
       particlesContainer.appendChild(particle);
     }
 
-    // Navbar scroll effect
+    // Navbar
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Scroll animation observer
+    // Scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
+    }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
