@@ -161,7 +161,6 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       margin-bottom: 16px;
-      animation: fadeInUp 0.8s ease;
     }
 
     .hero-name {
@@ -170,7 +169,6 @@
       font-weight: 700;
       line-height: 1.1;
       margin-bottom: 20px;
-      animation: fadeInUp 0.8s ease 0.1s backwards;
     }
 
     .hero-name .highlight {
@@ -183,7 +181,6 @@
       color: var(--text-secondary);
       font-weight: 400;
       margin-bottom: 36px;
-      animation: fadeInUp 0.8s ease 0.2s backwards;
     }
 
     .hero-desc {
@@ -192,14 +189,12 @@
       max-width: 600px;
       margin-bottom: 40px;
       line-height: 1.8;
-      animation: fadeInUp 0.8s ease 0.3s backwards;
     }
 
     .hero-cta {
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
-      animation: fadeInUp 0.8s ease 0.4s backwards;
     }
 
     .btn {
@@ -244,7 +239,6 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       margin-top: 60px;
-      animation: fadeInUp 0.8s ease 0.5s backwards;
     }
 
     .stat-item {
@@ -252,6 +246,14 @@
       padding: 24px;
       border-radius: 12px;
       border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 15px 30px rgba(232, 74, 95, 0.15);
     }
 
     .stat-number {
@@ -265,6 +267,18 @@
     .stat-label {
       font-size: 14px;
       color: var(--text-muted);
+    }
+
+    /* Scroll Animation Classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Section Styles */
@@ -316,6 +330,22 @@
       align-items: center;
       justify-content: center;
       font-size: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-image-wrapper::before {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: conic-gradient(from 0deg, transparent, var(--accent), transparent);
+      animation: rotate 4s linear infinite;
+      opacity: 0.3;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
     }
 
     .about-image::after {
@@ -358,6 +388,13 @@
       background: var(--bg-card);
       border-radius: 10px;
       border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .highlight-item:hover {
+      border-color: var(--accent);
+      transform: translateX(5px);
     }
 
     .highlight-item i {
@@ -365,11 +402,11 @@
       font-size: 20px;
     }
 
-    /* Skills Section */
+    /* Skills Section with Progress Bars */
     .skills-container {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
     }
 
     .skill-category {
@@ -409,29 +446,47 @@
       font-weight: 600;
     }
 
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .skill-progress {
+      margin-top: 16px;
     }
 
-    .skill-tag {
-      padding: 10px 18px;
-      background: var(--bg-secondary);
-      border-radius: 8px;
+    .skill-item {
+      margin-bottom: 16px;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .skill-name {
       font-size: 14px;
       color: var(--text-secondary);
-      border: 1px solid var(--border);
-      transition: all 0.3s ease;
     }
 
-    .skill-tag:hover {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
+    .skill-percent {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 600;
     }
 
-    /* Projects Section */
+    .progress-bar {
+      height: 6px;
+      background: var(--bg-secondary);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      border-radius: 3px;
+      width: 0;
+      transition: width 1s ease;
+    }
+
+    /* Projects Section with Modals */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -445,6 +500,7 @@
       border: 1px solid var(--border);
       transition: all 0.4s ease;
       position: relative;
+      cursor: pointer;
       overflow: hidden;
     }
 
@@ -555,10 +611,83 @@
       margin-top: 4px;
     }
 
-    /* Experience Timeline */
+    /* Project Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .modal-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .modal-close {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Interactive Timeline */
     .timeline {
       position: relative;
       padding-left: 30px;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     .timeline::before {
@@ -568,12 +697,20 @@
       top: 0;
       bottom: 0;
       width: 2px;
-      background: var(--accent-tertiary);
+      background: linear-gradient(to bottom, var(--accent), var(--accent-secondary));
     }
 
     .timeline-item {
       position: relative;
-      padding-bottom: 40px;
+      padding-bottom: 50px;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: all 0.6s ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
     }
 
     .timeline-item::before {
@@ -585,6 +722,24 @@
       height: 10px;
       background: var(--accent);
       border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--bg-primary), 0 0 20px var(--accent);
+    }
+
+    .timeline-item:hover::before {
+      transform: scale(1.3);
+    }
+
+    .timeline-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-card:hover {
+      border-color: var(--accent);
+      transform: translateX(10px);
     }
 
     .timeline-date {
@@ -603,6 +758,7 @@
     .timeline-org {
       color: var(--text-secondary);
       margin-bottom: 12px;
+      font-size: 14px;
     }
 
     .timeline-desc {
@@ -651,6 +807,7 @@
     .contact-item:hover {
       border-color: var(--accent);
       transform: translateX(10px);
+      box-shadow: 0 10px 30px rgba(232, 74, 95, 0.1);
     }
 
     .contact-icon {
@@ -689,22 +846,10 @@
       text-decoration: none;
     }
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     /* Responsive */
     @media (max-width: 1024px) {
       .skills-container {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
       }
       .projects-grid {
         grid-template-columns: 1fr;
@@ -731,9 +876,6 @@
         grid-template-columns: 1fr;
       }
       .about-highlights {
-        grid-template-columns: 1fr;
-      }
-      .skills-container {
         grid-template-columns: 1fr;
       }
       .contact-grid {
@@ -764,14 +906,16 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <p class="hero-greeting">Hello, I'm</p>
-      <h1 class="hero-name">Arjun <span class="highlight">Sharma</span></h1>
-      <p class="hero-title">Student Developer | Algorithm Enthusiast | Robotics & AI Explorer</p>
-      <p class="hero-desc">
-        An 8th-grade student with 3+ years of programming experience, specializing in Python, 
-        competitive programming (USACO), robotics, and machine learning. Building the future, one algorithm at a time.
+      <p class="hero-greeting fade-in">Hello, I'm</p>
+      <h1 class="hero-name fade-in">Arjun <span class="highlight">Sharma</span></h1>
+      <p class="hero-title fade-in">Student Developer | Algorithm Enthusiast | Robotics & AI Explorer</p>
+      <p class="hero-desc fade-in">
+        An 8th-grade student at Pearland Junior High West (soon to be Dawson High School) with 3+ years 
+        of programming experience, specializing in Python, competitive programming (USACO Silver), 
+        robotics, and machine learning. Currently expanding my skills in AI/ML while building 
+        real-world projects.
       </p>
-      <div class="hero-cta">
+      <div class="hero-cta fade-in">
         <a href="#projects" class="btn btn-primary">
           <i class="fas fa-folder-open"></i> View Projects
         </a>
@@ -781,22 +925,22 @@
       </div>
       
       <!-- Stats -->
-      <div class="stats">
+      <div class="stats fade-in">
         <div class="stat-item">
           <div class="stat-number">3+</div>
           <div class="stat-label">Years Coding</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">3</div>
+          <div class="stat-number">4</div>
           <div class="stat-label">Major Projects</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">8+</div>
+          <div class="stat-number">12+</div>
           <div class="stat-label">Technologies</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">USACO</div>
-          <div class="stat-label">Competitor</div>
+          <div class="stat-number">Silver</div>
+          <div class="stat-label">USACO</div>
         </div>
       </div>
     </div>
@@ -806,47 +950,49 @@
   <section id="about">
     <div class="section-header">
       <div>
-        <h2 class="section-title">About <span>Me</span></h2>
-        <p class="section-subtitle">Building a foundation for the future of technology</p>
+        <h2 class="section-title fade-in">About <span>Me</span></h2>
+        <p class="section-subtitle fade-in">Building a foundation for the future of technology</p>
       </div>
     </div>
     <div class="about-grid">
-      <div class="about-image">
+      <div class="about-image fade-in">
         <div class="about-image-wrapper">
-          <i class="fas fa-user-graduate" style="color: white;"></i>
+          <i class="fas fa-user-graduate" style="color: white; position: relative; z-index: 1;"></i>
         </div>
       </div>
       <div class="about-content">
-        <h3>Passionate Tech Enthusiast</h3>
-        <p>
-          I'm an 8th-grade student with a deep passion for software engineering, mathematics, and robotics. 
-          My journey in technology began 3 years ago with Python, and I've since expanded into competitive 
-          programming, machine learning, game development, and hardware engineering.
+        <h3 class="fade-in">Passionate Tech Enthusiast</h3>
+        <p class="fade-in">
+          I'm an 8th-grade student at Pearland Junior High West (moving to Dawson High School in 9th grade) 
+          with a deep passion for software engineering, mathematics, and robotics. My journey in technology 
+          began 3 years ago with Python, and I've since expanded into competitive programming, machine learning, 
+          game development, and hardware engineering.
         </p>
-        <p>
-          I actively participate in the USA Computing Olympiad (USACO), one of the most prestigious 
-          algorithmic programming competitions in the United States. Competing at the middle school 
-          level demonstrates a level of technical ambition and problem-solving ability rarely seen among peers.
+        <p class="fade-in">
+          I actively participate in the USA Computing Olympiad (USACO), currently at the Silver division level, 
+          solving complex algorithmic problems involving data structures, dynamic programming, and graph algorithms. 
+          Competing at this level as a middle schooler demonstrates technical ambition rarely seen among peers.
         </p>
-        <p>
-          Beyond coding, I have hands-on experience with LEGO MINDSTORMS EV3 robotics, participate in 
-          TMSCA mathematics competitions, and am currently expanding into AI and machine learning.
+        <p class="fade-in">
+          Beyond coding, I have hands-on experience with LEGO MINDSTORMS EV3 robotics through FLL competitions, 
+          participated in TMSCA mathematics competitions (our school team took 2nd place in state sweepstakes!), 
+          and am currently expanding into AI and machine learning with real-world projects.
         </p>
         
         <div class="about-highlights">
-          <div class="highlight-item">
+          <div class="highlight-item fade-in">
             <i class="fas fa-brain"></i>
             <span>AI/ML Explorer</span>
           </div>
-          <div class="highlight-item">
+          <div class="highlight-item fade-in">
             <i class="fas fa-robot"></i>
-            <span>Robotics Builder</span>
+            <span>FLL Robotics</span>
           </div>
-          <div class="highlight-item">
+          <div class="highlight-item fade-in">
             <i class="fas fa-trophy"></i>
-            <span>USACO Competitor</span>
+            <span>TMSCA State Top 20</span>
           </div>
-          <div class="highlight-item">
+          <div class="highlight-item fade-in">
             <i class="fas fa-calculator"></i>
             <span>Math Champion</span>
           </div>
@@ -855,312 +1001,298 @@
     </div>
   </section>
 
-  <!-- Skills Section -->
+  <!-- Skills Section with Progress Bars -->
   <section id="skills">
     <div class="section-header">
       <div>
-        <h2 class="section-title">Technical <span>Skills</span></h2>
-        <p class="section-subtitle">Technologies and tools I work with</p>
+        <h2 class="section-title fade-in">Technical <span>Skills</span></h2>
+        <p class="section-subtitle fade-in">Technologies and proficiency levels</p>
       </div>
     </div>
     <div class="skills-container">
-      <div class="skill-category">
+      <div class="skill-category fade-in">
         <div class="skill-header">
           <div class="skill-icon"><i class="fab fa-python"></i></div>
           <div class="skill-title">Programming</div>
         </div>
-        <div class="skill-list">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Lua</span>
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">Data Structures</span>
-          <span class="skill-tag">Algorithms</span>
-          <span class="skill-tag">OOP</span>
+        <div class="skill-progress">
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Python</span><span class="skill-percent">95%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="95"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Lua</span><span class="skill-percent">80%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Algorithms</span><span class="skill-percent">85%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
+          </div>
         </div>
       </div>
       
-      <div class="skill-category">
+      <div class="skill-category fade-in">
         <div class="skill-header">
           <div class="skill-icon"><i class="fas fa-brain"></i></div>
           <div class="skill-title">AI & Machine Learning</div>
         </div>
-        <div class="skill-list">
-          <span class="skill-tag">Supervised Learning</span>
-          <span class="skill-tag">Binary Classification</span>
-          <span class="skill-tag">Data Analysis</span>
-          <span class="skill-tag">Kaggle</span>
-          <span class="skill-tag">Pandas</span>
-          <span class="skill-tag">Scikit-learn</span>
+        <div class="skill-progress">
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Supervised Learning</span><span class="skill-percent">75%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="75"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Data Analysis</span><span class="skill-percent">80%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Kaggle</span><span class="skill-percent">85%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
+          </div>
         </div>
       </div>
       
-      <div class="skill-category">
+      <div class="skill-category fade-in">
         <div class="skill-header">
           <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
           <div class="skill-title">Cybersecurity</div>
         </div>
-        <div class="skill-list">
-          <span class="skill-tag">AES Encryption</span>
-          <span class="skill-tag">Cryptography</span>
-          <span class="skill-tag">Bitwise Operations</span>
-          <span class="skill-tag">Security Principles</span>
+        <div class="skill-progress">
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">AES Encryption</span><span class="skill-percent">70%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="70"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Cryptography</span><span class="skill-percent">65%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="65"></div></div>
+          </div>
         </div>
       </div>
       
-      <div class="skill-category">
+      <div class="skill-category fade-in">
         <div class="skill-header">
           <div class="skill-icon"><i class="fas fa-gamepad"></i></div>
           <div class="skill-title">Game Development</div>
         </div>
-        <div class="skill-list">
-          <span class="skill-tag">Roblox</span>
-          <span class="skill-tag">Lua Scripting</span>
-          <span class="skill-tag">Game Design</span>
-          <span class="skill-tag">Level Design</span>
-          <span class="skill-tag">Player Mechanics</span>
-          <span class="skill-tag">Event Handling</span>
+        <div class="skill-progress">
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Roblox/Lua</span><span class="skill-percent">90%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Game Design</span><span class="skill-percent">85%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
+          </div>
         </div>
       </div>
       
-      <div class="skill-category">
+      <div class="skill-category fade-in">
         <div class="skill-header">
           <div class="skill-icon"><i class="fas fa-microchip"></i></div>
           <div class="skill-title">Robotics</div>
         </div>
-        <div class="skill-list">
-          <span class="skill-tag">LEGO EV3</span>
-          <span class="skill-tag">FIRST LEGO League</span>
-          <span class="skill-tag">Sensor Programming</span>
-          <span class="skill-tag">Motor Control</span>
-          <span class="skill-tag">Autonomous Systems</span>
+        <div class="skill-progress">
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">LEGO EV3</span><span class="skill-percent">90%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">FLL Competition</span><span class="skill-percent">85%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
+          </div>
         </div>
       </div>
       
-      <div class="skill-category">
+      <div class="skill-category fade-in">
         <div class="skill-header">
           <div class="skill-icon"><i class="fas fa-cube"></i></div>
           <div class="skill-title">3D Design</div>
         </div>
-        <div class="skill-list">
-          <span class="skill-tag">Blender</span>
-          <span class="skill-tag">3D Modeling</span>
-          <span class="skill-tag">Sculpting</span>
-          <span class="skill-tag">UV Mapping</span>
-          <span class="skill-tag">Texturing</span>
-          <span class="skill-tag">Animation</span>
-        </div>
-      </div>
-      
-      <div class="skill-category">
-        <div class="skill-header">
-          <div class="skill-icon"><i class="fas fa-calculator"></i></div>
-          <div class="skill-title">Mathematics</div>
-        </div>
-        <div class="skill-list">
-          <span class="skill-tag">TMSCA Competitions</span>
-          <span class="skill-tag">Number Sense</span>
-          <span class="skill-tag">Calculations</span>
-          <span class="skill-tag">Logic & Reasoning</span>
-          <span class="skill-tag">G&T Program</span>
-        </div>
-      </div>
-      
-      <div class="skill-category">
-        <div class="skill-header">
-          <div class="skill-icon"><i class="fas fa-tools"></i></div>
-          <div class="skill-title">Tools & Platforms</div>
-        </div>
-        <div class="skill-list">
-          <span class="skill-tag">Replit IDE</span>
-          <span class="skill-tag">GitHub</span>
-          <span class="skill-tag">Kaggle</span>
-          <span class="skill-tag">VS Code</span>
-          <span class="skill-tag">LEGO Software</span>
+        <div class="skill-progress">
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Blender</span><span class="skill-percent">70%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="70"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span class="skill-name">Modeling</span><span class="skill-percent">75%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="75"></div></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
+  <!-- Projects Section with Modals -->
   <section id="projects">
     <div class="section-header">
       <div>
-        <h2 class="section-title">Featured <span>Projects</span></h2>
-        <p class="section-subtitle">Real-world projects demonstrating technical skills</p>
+        <h2 class="section-title fade-in">Featured <span>Projects</span></h2>
+        <p class="section-subtitle fade-in">Click on any project for more details</p>
       </div>
     </div>
     <div class="projects-grid">
-      <div class="project-card">
+      <div class="project-card fade-in" onclick="openModal('titanic')">
         <div class="project-header">
           <div class="project-number">01</div>
           <div class="project-links">
-            <a href="#" class="project-link"><i class="fab fa-kaggle"></i></a>
-            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+            <a href="https://www.kaggle.com/code/kaglelearner3141/mlm1-the-titanic" target="_blank" class="project-link" onclick="event.stopPropagation()"><i class="fab fa-kaggle"></i></a>
+            <a href="#" class="project-link" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
           </div>
         </div>
         <h3 class="project-title">Titanic Survival Prediction</h3>
         <p class="project-desc">
-          Built a machine learning model on Kaggle to predict survival outcomes for Titanic passengers. 
-          This binary classification project involved real-world data science workflows including data 
-          cleaning, feature engineering, model training, and prediction on unseen data.
+          Machine learning model on Kaggle to predict survival outcomes. Binary classification 
+          with data cleaning, feature engineering, and model training.
         </p>
         <div class="project-tech">
           <span class="tech-tag">Python</span>
-          <span class="tech-tag">Machine Learning</span>
+          <span class="tech-tag">ML</span>
           <span class="tech-tag">Kaggle</span>
-          <span class="tech-tag">Pandas</span>
         </div>
-        <ul class="project-features">
-          <li><i class="fas fa-check-circle"></i> Performed data cleaning and preprocessing on 891 training samples</li>
-          <li><i class="fas fa-check-circle"></i> Selected relevant features: Pclass, Sex, Age, Fare, etc.</li>
-          <li><i class="fas fa-check-circle"></i> Trained classification model achieving 78% accuracy</li>
-          <li><i class="fas fa-check-circle"></i> Generated predictions for 418 test samples</li>
-        </ul>
       </div>
       
-      <div class="project-card">
+      <div class="project-card fade-in" onclick="openModal('roblox')">
         <div class="project-header">
           <div class="project-number">02</div>
           <div class="project-links">
-            <a href="#" class="project-link"><i class="fas fa-gamepad"></i></a>
-            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+            <a href="https://www.roblox.com/games/14075227855/Rebirth-Simulator" target="_blank" class="project-link" onclick="event.stopPropagation()"><i class="fas fa-gamepad"></i></a>
+            <a href="#" class="project-link" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
           </div>
         </div>
         <h3 class="project-title">Roblox Obby Game</h3>
         <p class="project-desc">
-          Developed a fully functional obstacle course ("obby") game using Lua scripting in Roblox. 
-          Built custom player mechanics, game events, checkpoint systems, and interactive elements 
-          within a real multiplayer game environment.
+          Fully functional obstacle course game with custom player mechanics, checkpoints, 
+          and competitive leaderboards using Lua scripting.
         </p>
         <div class="project-tech">
           <span class="tech-tag">Lua</span>
-          <span class="tech-tag">Roblox Studio</span>
-          <span class="tech-tag">Game Design</span>
-          <span class="tech-tag">Multiplayer</span>
+          <span class="tech-tag">Roblox</span>
+          <span class="tech-tag">Game Dev</span>
         </div>
-        <ul class="project-features">
-          <li><i class="fas fa-check-circle"></i> Created 15+ unique obstacle types with varying difficulty</li>
-          <li><i class="fas fa-check-circle"></i> Implemented checkpoint system with player respawn logic</li>
-          <li><i class="fas fa-check-circle"></i> Added timer and leaderboard for competitive play</li>
-          <li><i class="fas fa-check-circle"></i> Designed 3 themed zones: Lava, Sky, Ice</li>
-        </ul>
       </div>
       
-      <div class="project-card">
+      <div class="project-card fade-in" onclick="openModal('aes')">
         <div class="project-header">
           <div class="project-number">03</div>
           <div class="project-links">
-            <a href="#" class="project-link"><i class="fas fa-code"></i></a>
-            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+            <a href="https://replit.com/@ArjunSharm/A-test#main.py" target="_blank" class="project-link" onclick="event.stopPropagation()"><i class="fas fa-code"></i></a>
+            <a href="#" class="project-link" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
           </div>
         </div>
         <h3 class="project-title">AES Encryption System</h3>
         <p class="project-desc">
-          Implemented the Advanced Encryption Standard (AES) algorithm from scratch using Python in Replit IDE. 
-          AES is a NIST-approved encryption standard used globally for securing sensitive data, internet 
-          communications, and file encryption.
+          Implementation of AES-128 encryption from scratch. NIST-approved standard for 
+          securing sensitive data using cryptographic logic.
         </p>
         <div class="project-tech">
           <span class="tech-tag">Python</span>
-          <span class="tech-tag">Cryptography</span>
-          <span class="tech-tag">AES-128</span>
-          <span class="tech-tag">Replit</span>
+          <span class="tech-tag">Crypto</span>
+          <span class="tech-tag">Security</span>
         </div>
-        <ul class="project-features">
-          <li><i class="fas fa-check-circle"></i> Implemented SubBytes transformation with S-Box lookup</li>
-          <li><i class="fas fa-check-circle"></i> Built ShiftRows and MixColumns operations</li>
-          <li><i class="fas fa-check-circle"></i> Created key expansion algorithm for round keys</li>
-          <li><i class="fas fa-check-circle"></i> Added encryption and decryption functions</li>
-        </ul>
       </div>
       
-      <div class="project-card">
+      <div class="project-card fade-in" onclick="openModal('fll')">
         <div class="project-header">
           <div class="project-number">04</div>
           <div class="project-links">
-            <a href="#" class="project-link"><i class="fas fa-robot"></i></a>
-            <a href="#" class="project-link"><i class="fas fa-video"></i></a>
+            <a href="#" class="project-link" onclick="event.stopPropagation()"><i class="fas fa-robot"></i></a>
           </div>
         </div>
         <h3 class="project-title">FLL Competition Robot</h3>
         <p class="project-desc">
-          Designed and programmed an autonomous LEGO MINDSTORMS EV3 robot for FIRST LEGO League competition. 
-          The robot completed complex missions including object retrieval, navigation, and precise movements 
-          using sensors and motor controls.
+          Autonomous LEGO MINDSTORMS EV3 robot for FIRST LEGO League. Completed complex 
+          missions with sensors and precise motor control.
         </p>
         <div class="project-tech">
-          <span class="tech-tag">EV3 Blockly</span>
+          <span class="tech-tag">EV3</span>
           <span class="tech-tag">Robotics</span>
-          <span class="tech-tag">Sensors</span>
           <span class="tech-tag">FLL</span>
         </div>
-        <ul class="project-features">
-          <li><i class="fas fa-check-circle"></i> Built robot with color, ultrasonic, and touch sensors</li>
-          <li><i class="fas fa-check-circle"></i> Programmed autonomous pathfinding and line following</li>
-          <li><i class="fas fa-check-circle"></i> Created reusable, reliable mission sequences</li>
-          <li><i class="fas fa-check-circle"></i> Developed innovation project solution presentation</li>
-        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Experience Section -->
+  <!-- Project Modal -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Project</h2>
+        <div class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></div>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Experience Section with Interactive Timeline -->
   <section id="experience">
     <div class="section-header">
       <div>
-        <h2 class="section-title">Experience & <span>Achievements</span></h2>
-        <p class="section-subtitle">Competitions and accomplishments</p>
+        <h2 class="section-title fade-in">Experience & <span>Achievements</span></h2>
+        <p class="section-subtitle fade-in">My journey through competitions and learning</p>
       </div>
     </div>
     <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-date">2024 - Present</div>
-        <h3 class="timeline-title">USACO Competitor</h3>
-        <p class="timeline-org">USA Computing Olympiad</p>
-        <p class="timeline-desc">
-          Participating in algorithmic programming contests at the Bronze and Silver levels. 
-          Solving complex problems involving data structures, dynamic programming, and graph algorithms.
-        </p>
+      <div class="timeline-item fade-in">
+        <div class="timeline-card">
+          <div class="timeline-date">2024 - Present</div>
+          <h3 class="timeline-title">USACO Silver Division</h3>
+          <p class="timeline-org">USA Computing Olympiad</p>
+          <p class="timeline-desc">
+            Progressed from Bronze to Silver division. Solving complex problems involving 
+            data structures, dynamic programming, and graph algorithms. One of the few 
+            middle schoolers in the Silver division.
+          </p>
+        </div>
       </div>
       
-      <div class="timeline-item">
-        <div class="timeline-date">2023 - Present</div>
-        <h3 class="timeline-title">FIRST LEGO League (FLL)</h3>
-        <p class="timeline-org">FLL Robotics Competition</p>
-        <p class="timeline-desc">
-          Built and programmed autonomous robots using LEGO MINDSTORMS EV3. Competed in regional 
-          tournaments, designing solutions for real-world engineering challenges.
-        </p>
+      <div class="timeline-item fade-in">
+        <div class="timeline-card">
+          <div class="timeline-date">October 2024</div>
+          <h3 class="timeline-title">TMSCA State Competition - Top 20 Science</h3>
+          <p class="timeline-org">Texas Math & Science Coaches Association</p>
+          <p class="timeline-desc">
+            Secured Top 20 in Science at the state competition in San Antonio. Part of 
+            Pearland Junior High West team that achieved 2nd place in sweepstakes, 
+            2nd in team Math, and 5th in team Science among 113 competing students.
+          </p>
+        </div>
       </div>
       
-      <div class="timeline-item">
-        <div class="timeline-date">2023 - Present</div>
-        <h3 class="timeline-title">TMSCA Math Competitions</h3>
-        <p class="timeline-org">Texas Math Competition</p>
-        <p class="timeline-desc">
-          Competing in Number Sense, Calculator, and General Math competitions. Developing quick 
-          calculation skills and mathematical reasoning under time pressure.
-        </p>
+      <div class="timeline-item fade-in">
+        <div class="timeline-card">
+          <div class="timeline-date">2024 (6th Grade)</div>
+          <h3 class="timeline-title">FIRST LEGO League (FLL)</h3>
+          <p class="timeline-org">The Pearnauts | Coach: Ms. Beiker</p>
+          <p class="timeline-desc">
+            Built and programmed autonomous robots using LEGO MINDSTORMS EV3. Designed 
+            solutions for real-world engineering challenges and presented innovation 
+            projects at regional competitions.
+          </p>
+        </div>
       </div>
       
-      <div class="timeline-item">
-        <div class="timeline-date">2022 - Present</div>
-        <h3 class="timeline-title">Gifted & Talented Program</h3>
-        <p class="timeline-org">Academic Enrichment</p>
-        <p class="timeline-desc">
-          Enrolled in advanced academic program providing enrichment in mathematics, science, 
-          and logical reasoning beyond standard curriculum.
-        </p>
+      <div class="timeline-item fade-in">
+        <div class="timeline-card">
+          <div class="timeline-date">2022 - Present</div>
+          <h3 class="timeline-title">Python Development</h3>
+          <p class="timeline-org">Self-taught & Structured Learning</p>
+          <p class="timeline-desc">
+            3+ years of Python programming including data structures, algorithms, 
+            file I/O, and integration with ML libraries like Pandas and Scikit-learn.
+          </p>
+        </div>
       </div>
       
-      <div class="timeline-item">
-        <div class="timeline-date">2021 - Present</div>
-        <h3 class="timeline-title">Python Development</h3>
-        <p class="timeline-org">Self-taught & Structured Learning</p>
-        <p class="timeline-desc">
-          3+ years of Python programming including data structures, algorithms, file I/O, 
-          and integration with libraries like Pandas and Scikit-learn.
-        </p>
+      <div class="timeline-item fade-in">
+        <div class="timeline-card">
+          <div class="timeline-date">2022 - Present</div>
+          <h3 class="timeline-title">Gifted & Talented Program</h3>
+          <p class="timeline-org">Academic Enrichment</p>
+          <p class="timeline-desc">
+            Enrolled in advanced academic program providing enrichment in mathematics, 
+            science, and logical reasoning beyond standard curriculum.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -1169,8 +1301,8 @@
   <section id="contact">
     <div class="section-header">
       <div>
-        <h2 class="section-title">Get In <span>Touch</span></h2>
-        <p class="section-subtitle">Let's connect and collaborate</p>
+        <h2 class="section-title fade-in">Get In <span>Touch</span></h2>
+        <p class="section-subtitle fade-in">Let's connect and collaborate</p>
       </div>
     </div>
     <div class="contact-grid">
@@ -1183,7 +1315,7 @@
         </p>
       </div>
       <div class="contact-methods">
-        <a href="#" class="contact-item">
+        <a href="mailto:robotadvance2102@gmail.com" class="contact-item">
           <div class="contact-icon"><i class="fas fa-envelope"></i></div>
           <div>
             <div class="contact-label">Email</div>
@@ -1201,7 +1333,7 @@
           <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
           <div>
             <div class="contact-label">Location</div>
-            <div class="contact-value">United States</div>
+            <div class="contact-value">Pearland, Texas, USA</div>
           </div>
         </a>
       </div>
@@ -1210,10 +1342,128 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2026 Arjun Sharma. Built with <i class="fas fa-heart" style="color: var(--accent);"></i> and lots of <a href="#">coffee</a>.</p>
+    <p>&copy; 2026 Arjun Sharma. Built with <i class="fas fa-heart" style="color: var(--accent);"></i> and lots of <a href="#">code</a>.</p>
   </footer>
 
   <script>
+    // Project modal data
+    const projectData = {
+      titanic: {
+        title: "Titanic Survival Prediction",
+        content: `
+          <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7;">
+            Built a machine learning model on Kaggle to predict survival outcomes for Titanic passengers. 
+            This binary classification project gave me hands-on experience with real-world data science workflows.
+          </p>
+          <h4 style="color: var(--accent); margin-bottom: 12px;">Key Achievements:</h4>
+          <ul style="color: var(--text-muted); margin-bottom: 20px;">
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Performed data cleaning and preprocessing on 891 training samples</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Selected relevant features: Pclass, Sex, Age, Fare, Embarked</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Trained classification model achieving 78% accuracy</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Generated predictions for 418 test samples</li>
+          </ul>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Python</span>
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Pandas</span>
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Scikit-learn</span>
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Kaggle</span>
+          </div>
+        `
+      },
+      roblox: {
+        title: "Roblox Obby Game",
+        content: `
+          <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7;">
+            Developed multiple fully functional obstacle course games using Lua scripting in Roblox Studio. 
+            Built custom player mechanics, game events, and interactive elements within a multiplayer environment.
+          </p>
+          <h4 style="color: var(--accent); margin-bottom: 12px;">Key Achievements:</h4>
+          <ul style="color: var(--text-muted); margin-bottom: 20px;">
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Created 15+ unique obstacle types with varying difficulty levels</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Implemented checkpoint system with player respawn logic</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Added timer and leaderboard for competitive play</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Designed themed zones: Lava, Sky, Ice environments</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Published multiple games with thousands of plays</li>
+          </ul>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Lua</span>
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Roblox Studio</span>
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Game Design</span>
+          </div>
+        `
+      },
+      aes: {
+        title: "AES Encryption System",
+        content: `
+          <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7;">
+            Implemented the Advanced Encryption Standard (AES-128) algorithm from scratch using Python in Replit IDE. 
+            AES is a NIST-approved encryption standard used globally for securing sensitive data.
+          </p>
+          <h4 style="color: var(--accent); margin-bottom: 12px;">Key Achievements:</h4>
+          <ul style="color: var(--text-muted); margin-bottom: 20px;">
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Implemented SubBytes transformation with S-Box lookup table</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Built ShiftRows and MixColumns operations</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Created key expansion algorithm for round keys generation</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Added both encryption and decryption functions</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Sophisticated project for middle school level</li>
+          </ul>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Python</span>
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Cryptography</span>
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Replit IDE</span>
+          </div>
+        `
+      },
+      fll: {
+        title: "FLL Competition Robot",
+        content: `
+          <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7;">
+            Designed and programmed an autonomous LEGO MINDSTORMS EV3 robot for FIRST LEGO League competition. 
+            The team was called "The Pearnauts" coached by Ms. Beiker during 6th grade.
+          </p>
+          <h4 style="color: var(--accent); margin-bottom: 12px;">Key Achievements:</h4>
+          <ul style="color: var(--text-muted); margin-bottom: 20px;">
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Built robot with color, ultrasonic, and touch sensors</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Programmed autonomous pathfinding and line following</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Created reusable, reliable mission sequences</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Developed innovation project solution and presentation</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Participated in regional FLL competition</li>
+          </ul>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">EV3 Blockly</span>
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Robotics</span>
+            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">FLL</span>
+          </div>
+        `
+      }
+    };
+
+    // Modal functions
+    function openModal(projectId) {
+      const project = projectData[projectId];
+      document.getElementById('modalTitle').textContent = project.title;
+      document.getElementById('modalBody').innerHTML = project.content;
+      document.getElementById('projectModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('projectModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close modal on overlay click
+    document.getElementById('projectModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('projectModal')) {
+        closeModal();
+      }
+    });
+
+    // Close modal on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -1222,6 +1472,33 @@
       } else {
         navbar.classList.remove('scrolled');
       }
+    });
+
+    // Scroll animation observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // Animate progress bars
+          if (entry.target.querySelectorAll('.progress-fill')) {
+            entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+              setTimeout(() => {
+                bar.style.width = bar.getAttribute('data-width') + '%';
+              }, 300);
+            });
+          }
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in, .timeline-item').forEach(el => {
+      observer.observe(el);
     });
 
     // Smooth scroll for nav links
