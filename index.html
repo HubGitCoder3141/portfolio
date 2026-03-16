@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arjun Sharma | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card-bg: #16161f;
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --secondary: #22d3ee;
+      --tertiary: #f472b6;
+      --accent-yellow: #facc15;
+      --accent-green: #4ade80;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 40%, rgba(244, 114, 182, 0.08) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 40px 20px;
+    }
+
+    .hero-content {
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-name {
+      font-size: clamp(40px, 10vw, 80px);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--tertiary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: -2px;
+    }
+
+    .hero-tagline {
+      font-size: clamp(18px, 4vw, 24px);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      animation: bounce 2s infinite;
+      color: var(--text-muted);
+      font-size: 24px;
+    }
+
+    /* Sections */
+    section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .section-title span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* About Section */
+    .about {
+      background: rgba(22, 22, 31, 0.5);
+    }
+
+    .about-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .about-text {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .about-text p {
+      margin-bottom: 20px;
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-category {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .skill-category:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+    }
+
+    .skill-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .skill-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--primary-light);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--secondary);
+      box-shadow: 0 25px 50px rgba(34, 211, 238, 0.1);
+    }
+
+    .project-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: rgba(99, 102, 241, 0.2);
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-tag {
+      background: rgba(34, 211, 238, 0.15);
+      color: var(--secondary);
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .about-card {
+        padding: 24px;
+      }
+      
+      .skill-category, .project-card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-name">Arjun Sharma</h1>
+      <p class="hero-tagline">Web Developer | Student | Tech Enthusiast</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#skills" class="btn btn-outline">My Skills</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">↓</div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title fade-in"><span>About Me</span></h2>
+      <div class="about-card fade-in">
+        <p class="about-text">
+          I am an 8th-grade student with a strong and growing foundation in software engineering, mathematics, and robotics. I have been programming in Python for 2–3 years, building a solid command of core programming concepts such as data structures, functions, loops, and logical problem-solving.
+        </p>
+        <p class="about-text">
+          I have put my skills directly to the test by participating in the USA Computing Olympiad (USACO) — one of the most prestigious algorithmic programming competitions in the country. Competing in USACO at the middle school level demonstrates a level of technical ambition and algorithmic thinking that is rare among students my age.
+        </p>
+        <p class="about-text">
+          Alongside my Python development, I have one year of hands-on experience with LEGO MINDSTORMS EV3 block-based robotics programming, giving me practical exposure to both software and hardware systems. I am also actively expanding into artificial intelligence and machine learning.
+        </p>
+        <p class="about-text">
+          I compete in TMSCA mathematics competitions and am enrolled in a Gifted & Talented academic program. With competitive programming experience through USACO, hands-on robotics work, and a growing AI skill set, I am building exactly the kind of technical foundation that top technology companies seek in future engineers.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title fade-in"><span>Skills</span></h2>
+      <div class="skills-grid">
+        <div class="skill-category fade-in">
+          <div class="skill-icon">🐍</div>
+          <div class="skill-title">Programming</div>
+          <div class="skill-list">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Lua</span>
+            <span class="skill-tag">Algorithms</span>
+          </div>
+        </div>
+        <div class="skill-category fade-in">
+          <div class="skill-icon">🤖</div>
+          <div class="skill-title">AI & Machine Learning</div>
+          <div class="skill-list">
+            <span class="skill-tag">Supervised Learning</span>
+            <span class="skill-tag">Data Science</span>
+            <span class="skill-tag">Kaggle</span>
+          </div>
+        </div>
+        <div class="skill-category fade-in">
+          <div class="skill-icon">🔐</div>
+          <div class="skill-title">Cybersecurity</div>
+          <div class="skill-list">
+            <span class="skill-tag">AES Encryption</span>
+            <span class="skill-tag">Cryptography</span>
+            <span class="skill-tag">USACO</span>
+          </div>
+        </div>
+        <div class="skill-category fade-in">
+          <div class="skill-icon">🎮</div>
+          <div class="skill-title">Game Development</div>
+          <div class="skill-list">
+            <span class="skill-tag">Roblox</span>
+            <span class="skill-tag">Lua Scripting</span>
+            <span class="skill-tag">Game Design</span>
+          </div>
+        </div>
+        <div class="skill-category fade-in">
+          <div class="skill-icon">🤖</div>
+          <div class="skill-title">Robotics</div>
+          <div class="skill-list">
+            <span class="skill-tag">LEGO EV3</span>
+            <span class="skill-tag">FLL</span>
+            <span class="skill-tag">Sensors</span>
+          </div>
+        </div>
+        <div class="skill-category fade-in">
+          <div class="skill-icon">🎨</div>
+          <div class="skill-title">Design</div>
+          <div class="skill-list">
+            <span class="skill-tag">Blender 3D</span>
+            <span class="skill-tag">Modeling</span>
+            <span class="skill-tag">Animation</span>
+          </div>
+        </div>
+        <div class="skill-category fade-in">
+          <div class="skill-icon">📐</div>
+          <div class="skill-title">Mathematics</div>
+          <div class="skill-list">
+            <span class="skill-tag">TMSCA</span>
+            <span class="skill-tag">Competitive Math</span>
+            <span class="skill-tag">Logic</span>
+          </div>
+        </div>
+        <div class="skill-category fade-in">
+          <div class="skill-icon">☁️</div>
+          <div class="skill-title">Tools</div>
+          <div class="skill-list">
+            <span class="skill-tag">Replit</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">Kaggle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="about" id="projects">
+    <div class="container">
+      <h2 class="section-title fade-in"><span>Projects</span></h2>
+      <div class="projects-grid">
+        <div class="project-card fade-in">
+          <div class="project-number">01</div>
+          <h3 class="project-title">Titanic ML Project</h3>
+          <p class="project-desc">
+            Built a machine learning model on Kaggle to predict survival outcomes for Titanic passengers. This classic binary classification project involved data cleaning, feature selection, and model training — giving me hands-on experience with real-world data science workflows.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Machine Learning</span>
+            <span class="tech-tag">Kaggle</span>
+          </div>
+        </div>
+        <div class="project-card fade-in">
+          <div class="project-number">02</div>
+          <h3 class="project-title">Roblox Obby Game</h3>
+          <p class="project-desc">
+            Developed a fully functional obstacle course game using Lua scripting in Roblox. Built player mechanics, handled game events, and debugged live code. This project taught me core programming concepts within a real interactive game environment.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Lua</span>
+            <span class="tech-tag">Game Design</span>
+            <span class="tech-tag">Roblox</span>
+          </div>
+        </div>
+        <div class="project-card fade-in">
+          <div class="project-number">03</div>
+          <h3 class="project-title">AES Encryption</h3>
+          <p class="project-desc">
+            Implemented the Advanced Encryption Standard (AES) algorithm from scratch using Replit IDE. This project required strong understanding of cryptographic logic, bitwise operations, and advanced algorithmic thinking — a sophisticated undertaking for my level.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Cryptography</span>
+            <span class="tech-tag">Security</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Arjun Sharma. Built with passion for technology.</p>
+  </footer>
+
+  <script>
+    // Scroll animation
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
