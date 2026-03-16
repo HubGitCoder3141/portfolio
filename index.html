@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arjun Sharma | Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     :root {
@@ -19,6 +19,8 @@
       --text-muted: #6b6b75;
       --border: rgba(255, 255, 255, 0.06);
       --shadow: rgba(0, 0, 0, 0.4);
+      --codewars: #b9171b;
+      --leetcode: #ffa116;
     }
 
     * {
@@ -62,6 +64,30 @@
         radial-gradient(circle at 80% 20%, rgba(255, 132, 122, 0.06) 0%, transparent 40%),
         radial-gradient(circle at 50% 50%, rgba(42, 42, 58, 0.5) 0%, transparent 60%);
       animation: bgFloat 20s ease-in-out infinite;
+    }
+
+    /* Floating particles */
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 15s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
     }
 
     @keyframes bgFloat {
@@ -151,7 +177,7 @@
     }
 
     .hero-content {
-      max-width: 800px;
+      max-width: 900px;
     }
 
     .hero-greeting {
@@ -173,20 +199,32 @@
 
     .hero-name .highlight {
       color: var(--accent);
-      position: relative;
+    }
+
+    /* Typewriter */
+    .typewriter {
+      display: inline;
+      border-right: 2px solid var(--accent);
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { border-color: var(--accent); }
+      51%, 100% { border-color: transparent; }
     }
 
     .hero-title {
-      font-size: clamp(22px, 3vw, 32px);
+      font-size: clamp(20px, 3vw, 28px);
       color: var(--text-secondary);
       font-weight: 400;
       margin-bottom: 36px;
+      min-height: 40px;
     }
 
     .hero-desc {
       font-size: 18px;
       color: var(--text-muted);
-      max-width: 600px;
+      max-width: 650px;
       margin-bottom: 40px;
       line-height: 1.8;
     }
@@ -195,6 +233,7 @@
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
+      margin-bottom: 50px;
     }
 
     .btn {
@@ -236,18 +275,18 @@
     /* Stats Section */
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      margin-top: 60px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
     }
 
     .stat-item {
       background: var(--bg-card);
-      padding: 24px;
+      padding: 20px;
       border-radius: 12px;
       border: 1px solid var(--border);
       transition: all 0.3s ease;
       cursor: pointer;
+      text-align: center;
     }
 
     .stat-item:hover {
@@ -256,29 +295,22 @@
       box-shadow: 0 15px 30px rgba(232, 74, 95, 0.15);
     }
 
-    .stat-number {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--accent);
+    .stat-icon {
+      font-size: 24px;
       margin-bottom: 8px;
     }
 
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
     .stat-label {
-      font-size: 14px;
+      font-size: 12px;
       color: var(--text-muted);
-    }
-
-    /* Scroll Animation Classes */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     /* Section Styles */
@@ -317,10 +349,6 @@
       align-items: start;
     }
 
-    .about-image {
-      position: relative;
-    }
-
     .about-image-wrapper {
       width: 100%;
       aspect-ratio: 1;
@@ -346,18 +374,6 @@
 
     @keyframes rotate {
       100% { transform: rotate(360deg); }
-    }
-
-    .about-image::after {
-      content: '';
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      right: -20px;
-      bottom: -20px;
-      border: 2px solid var(--accent);
-      border-radius: 20px;
-      z-index: -1;
     }
 
     .about-content h3 {
@@ -402,23 +418,23 @@
       font-size: 20px;
     }
 
-    /* Skills Section with Progress Bars */
+    /* Skills Section */
     .skills-container {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
     .skill-category {
       background: var(--bg-card);
       border-radius: 16px;
-      padding: 30px;
+      padding: 28px;
       border: 1px solid var(--border);
       transition: all 0.4s ease;
     }
 
     .skill-category:hover {
-      transform: translateY(-8px);
+      transform: translateY(-8px) scale(1.02);
       border-color: var(--accent);
       box-shadow: 0 20px 40px var(--shadow);
     }
@@ -427,66 +443,49 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .skill-icon {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 20px;
     }
 
     .skill-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
     }
 
-    .skill-progress {
-      margin-top: 16px;
-    }
-
-    .skill-item {
-      margin-bottom: 16px;
-    }
-
-    .skill-info {
+    .skill-list {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .skill-name {
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
-    .skill-percent {
-      font-size: 14px;
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    .progress-bar {
-      height: 6px;
+    .skill-tag {
+      padding: 8px 14px;
       background: var(--bg-secondary);
-      border-radius: 3px;
-      overflow: hidden;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
     }
 
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
-      border-radius: 3px;
-      width: 0;
-      transition: width 1s ease;
+    .skill-tag:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: scale(1.05);
     }
 
-    /* Projects Section with Modals */
+    /* Projects Section */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -496,12 +495,11 @@
     .project-card {
       background: var(--bg-card);
       border-radius: 20px;
-      padding: 36px;
+      padding: 32px;
       border: 1px solid var(--border);
       transition: all 0.4s ease;
       position: relative;
       cursor: pointer;
-      overflow: hidden;
     }
 
     .project-card::before {
@@ -513,7 +511,6 @@
       height: 4px;
       background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
       transform: scaleX(0);
-      transform-origin: left;
       transition: transform 0.4s ease;
     }
 
@@ -530,12 +527,12 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .project-number {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 60px;
+      font-size: 56px;
       font-weight: 700;
       color: var(--accent-tertiary);
       line-height: 1;
@@ -543,14 +540,14 @@
 
     .project-links {
       display: flex;
-      gap: 12px;
+      gap: 10px;
     }
 
     .project-link {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       background: var(--bg-secondary);
-      border-radius: 10px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -562,131 +559,212 @@
     .project-link:hover {
       background: var(--accent);
       color: white;
+      transform: scale(1.1);
     }
 
     .project-title {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .project-desc {
       color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 24px;
+      line-height: 1.6;
+      margin-bottom: 16px;
     }
 
     .project-tech {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 20px;
     }
 
     .tech-tag {
-      padding: 6px 14px;
+      padding: 6px 12px;
       background: rgba(232, 74, 95, 0.1);
       color: var(--accent);
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
     }
 
-    .project-features {
-      list-style: none;
-      margin-top: 20px;
+    /* Certifications Section */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
-    .project-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
-      color: var(--text-muted);
-      font-size: 14px;
+    .cert-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .project-features li i {
-      color: var(--accent);
-      margin-top: 4px;
-    }
-
-    /* Project Modal */
-    .modal-overlay {
-      position: fixed;
+    .cert-card::after {
+      content: '';
+      position: absolute;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      right: 0;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, transparent 50%, var(--accent) 50%);
+      opacity: 0.1;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .cert-badge {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      padding: 20px;
+      font-size: 20px;
+      margin-bottom: 16px;
     }
 
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
+    .cert-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
     }
 
-    .modal-content {
+    .cert-issuer {
+      font-size: 14px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .cert-status {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(232, 74, 95, 0.1);
+      color: var(--accent);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .cert-status.completed {
+      background: rgba(74, 222, 128, 0.1);
+      color: #4ade80;
+    }
+
+    /* Volunteer Section */
+    .volunteer-card {
       background: var(--bg-card);
-      border-radius: 24px;
-      padding: 40px;
-      max-width: 700px;
-      width: 100%;
-      max-height: 80vh;
-      overflow-y: auto;
+      border-radius: 20px;
+      padding: 36px;
       border: 1px solid var(--border);
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 30px;
+      align-items: center;
+      transition: all 0.3s ease;
     }
 
-    .modal-overlay.active .modal-content {
-      transform: scale(1);
+    .volunteer-card:hover {
+      border-color: var(--accent);
     }
 
-    .modal-header {
+    .volunteer-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 20px;
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 24px;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
     }
 
-    .modal-title {
+    .volunteer-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .volunteer-org {
+      color: var(--accent);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .volunteer-hours {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(232, 74, 95, 0.1);
+      color: var(--accent);
+      border-radius: 20px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .volunteer-desc {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Platform Stats */
+    .platform-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .platform-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .platform-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .platform-icon {
       font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .platform-card.codewars .platform-icon { color: var(--codewars); }
+    .platform-card.leetcode .platform-icon { color: var(--leetcode); }
+    .platform-card.kaggle .platform-icon { color: #20BEFF; }
+    .platform-card.usaco .platform-icon { color: var(--accent); }
+
+    .platform-stat {
+      font-size: 28px;
       font-weight: 700;
       color: var(--text-primary);
+      margin-bottom: 4px;
     }
 
-    .modal-close {
-      width: 40px;
-      height: 40px;
-      background: var(--bg-secondary);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--text-secondary);
-      transition: all 0.3s ease;
+    .platform-label {
+      font-size: 14px;
+      color: var(--text-muted);
     }
 
-    .modal-close:hover {
-      background: var(--accent);
-      color: white;
-    }
-
-    /* Interactive Timeline */
+    /* Timeline */
     .timeline {
       position: relative;
       padding-left: 30px;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
@@ -702,15 +780,7 @@
 
     .timeline-item {
       position: relative;
-      padding-bottom: 50px;
-      opacity: 0;
-      transform: translateX(-30px);
-      transition: all 0.6s ease;
-    }
-
-    .timeline-item.visible {
-      opacity: 1;
-      transform: translateX(0);
+      padding-bottom: 40px;
     }
 
     .timeline-item::before {
@@ -725,14 +795,10 @@
       box-shadow: 0 0 0 4px var(--bg-primary), 0 0 20px var(--accent);
     }
 
-    .timeline-item:hover::before {
-      transform: scale(1.3);
-    }
-
     .timeline-card {
       background: var(--bg-card);
       border-radius: 16px;
-      padding: 28px;
+      padding: 24px;
       border: 1px solid var(--border);
       transition: all 0.3s ease;
     }
@@ -750,15 +816,15 @@
     }
 
     .timeline-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .timeline-org {
       color: var(--text-secondary);
-      margin-bottom: 12px;
       font-size: 14px;
+      margin-bottom: 10px;
     }
 
     .timeline-desc {
@@ -788,14 +854,14 @@
     .contact-methods {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
     .contact-item {
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 20px;
+      padding: 18px;
       background: var(--bg-card);
       border-radius: 12px;
       border: 1px solid var(--border);
@@ -807,18 +873,17 @@
     .contact-item:hover {
       border-color: var(--accent);
       transform: translateX(10px);
-      box-shadow: 0 10px 30px rgba(232, 74, 95, 0.1);
     }
 
     .contact-icon {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 18px;
     }
 
     .contact-label {
@@ -828,7 +893,7 @@
     }
 
     .contact-value {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 500;
     }
 
@@ -846,49 +911,49 @@
       text-decoration: none;
     }
 
+    /* Scroll Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Responsive */
     @media (max-width: 1024px) {
-      .skills-container {
-        grid-template-columns: 1fr;
+      .skills-container, .certs-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
       .projects-grid {
         grid-template-columns: 1fr;
       }
+      .platform-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 768px) {
-      nav {
-        padding: 16px 20px;
-      }
-      .nav-links {
-        display: none;
-      }
-      .hero {
-        padding: 100px 20px 60px;
-      }
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      section {
-        padding: 60px 20px;
-      }
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-      .about-highlights {
-        grid-template-columns: 1fr;
-      }
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 20px 60px; }
+      .stats { grid-template-columns: repeat(3, 1fr); }
+      section { padding: 60px 20px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-container, .certs-grid { grid-template-columns: 1fr; }
+      .volunteer-card { grid-template-columns: 1fr; text-align: center; }
+      .contact-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- Animated Background -->
-  <div class="bg-canvas"></div>
+  <div class="bg-canvas">
+    <div class="particles" id="particles"></div>
+  </div>
 
-  <!-- Navigation -->
   <nav id="navbar">
     <a href="#" class="nav-logo">
       <i class="fas fa-code"></i>
@@ -898,6 +963,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#certs">Certifications</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -908,12 +974,13 @@
     <div class="hero-content">
       <p class="hero-greeting fade-in">Hello, I'm</p>
       <h1 class="hero-name fade-in">Arjun <span class="highlight">Sharma</span></h1>
-      <p class="hero-title fade-in">Student Developer | Algorithm Enthusiast | Robotics & AI Explorer</p>
+      <p class="hero-title fade-in">
+        <span class="typewriter" id="typewriter"></span>
+      </p>
       <p class="hero-desc fade-in">
-        An 8th-grade student at Pearland Junior High West (soon to be Dawson High School) with 3+ years 
-        of programming experience, specializing in Python, competitive programming (USACO Silver), 
-        robotics, and machine learning. Currently expanding my skills in AI/ML while building 
-        real-world projects.
+        An 8th-grade student at Pearland Junior High West (moving to Dawson High School) with 3+ years 
+        of programming experience. Currently at USACO Silver division, with 100+ hours of volunteer 
+        mentorship at SMARTCore Labs, and actively building projects in ML, cybersecurity, and game development.
       </p>
       <div class="hero-cta fade-in">
         <a href="#projects" class="btn btn-primary">
@@ -924,24 +991,58 @@
         </a>
       </div>
       
-      <!-- Stats -->
       <div class="stats fade-in">
         <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-code"></i></div>
           <div class="stat-number">3+</div>
           <div class="stat-label">Years Coding</div>
         </div>
         <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
           <div class="stat-number">4</div>
-          <div class="stat-label">Major Projects</div>
+          <div class="stat-label">Projects</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">12+</div>
-          <div class="stat-label">Technologies</div>
+          <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+          <div class="stat-number">4+</div>
+          <div class="stat-label">Certifications</div>
         </div>
         <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-medal"></i></div>
           <div class="stat-number">Silver</div>
           <div class="stat-label">USACO</div>
         </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-hands-helping"></i></div>
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Volunteer Hours</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Stats -->
+  <section style="padding-top: 0;">
+    <div class="platform-stats fade-in">
+      <div class="platform-card codewars">
+        <div class="platform-icon"><i class="fas fa-khanda"></i></div>
+        <div class="platform-stat">4 Kyu</div>
+        <div class="platform-label">Codewars Rank</div>
+      </div>
+      <div class="platform-card leetcode">
+        <div class="platform-icon"><i class="fas fa-code"></i></div>
+        <div class="platform-stat">Active</div>
+        <div class="platform-label">LeetCode</div>
+      </div>
+      <div class="platform-card kaggle">
+        <div class="platform-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="platform-stat">2+</div>
+        <div class="platform-label">Kaggle Projects</div>
+      </div>
+      <div class="platform-card usaco">
+        <div class="platform-icon"><i class="fas fa-trophy"></i></div>
+        <div class="platform-stat">Silver</div>
+        <div class="platform-label">USACO</div>
       </div>
     </div>
   </section>
@@ -951,32 +1052,31 @@
     <div class="section-header">
       <div>
         <h2 class="section-title fade-in">About <span>Me</span></h2>
-        <p class="section-subtitle fade-in">Building a foundation for the future of technology</p>
+        <p class="section-subtitle fade-in">Building the future, one algorithm at a time</p>
       </div>
     </div>
     <div class="about-grid">
-      <div class="about-image fade-in">
-        <div class="about-image-wrapper">
-          <i class="fas fa-user-graduate" style="color: white; position: relative; z-index: 1;"></i>
-        </div>
+      <div class="about-image-wrapper fade-in">
+        <i class="fas fa-user-graduate" style="color: white; position: relative; z-index: 1;"></i>
       </div>
       <div class="about-content">
-        <h3 class="fade-in">Passionate Tech Enthusiast</h3>
+        <h3 class="fade-in">Tech Enthusiast & Mentor</h3>
         <p class="fade-in">
           I'm an 8th-grade student at Pearland Junior High West (moving to Dawson High School in 9th grade) 
-          with a deep passion for software engineering, mathematics, and robotics. My journey in technology 
-          began 3 years ago with Python, and I've since expanded into competitive programming, machine learning, 
-          game development, and hardware engineering.
+          with a deep passion for software engineering, mathematics, and robotics. My journey began 3 years 
+          ago with Python, and I've expanded into competitive programming, machine learning, game development, 
+          and hardware engineering.
         </p>
         <p class="fade-in">
-          I actively participate in the USA Computing Olympiad (USACO), currently at the Silver division level, 
-          solving complex algorithmic problems involving data structures, dynamic programming, and graph algorithms. 
-          Competing at this level as a middle schooler demonstrates technical ambition rarely seen among peers.
+          As a USACO Silver division competitor (one of the few middle schoolers at this level), I solve complex 
+          algorithmic problems. I'm also a Codewars 4 Kyu holder (upper tier globally) and actively solve 
+          problems on LeetCode - the same platform used by candidates targeting Google, Meta, and Amazon.
         </p>
         <p class="fade-in">
-          Beyond coding, I have hands-on experience with LEGO MINDSTORMS EV3 robotics through FLL competitions, 
-          participated in TMSCA mathematics competitions (our school team took 2nd place in state sweepstakes!), 
-          and am currently expanding into AI and machine learning with real-world projects.
+          Beyond my own learning, I've accumulated 100+ hours of volunteer service at SMARTCore Labs, a Pearland 
+          STEM education center. As a mentor, I've taught Python, HTML, CSS, Blender 3D, and game development 
+          to students of varying ages and skill levels - from young learners in Scratch to advanced teens in AI 
+          and robotics pathways.
         </p>
         
         <div class="about-highlights">
@@ -985,28 +1085,28 @@
             <span>AI/ML Explorer</span>
           </div>
           <div class="highlight-item fade-in">
-            <i class="fas fa-robot"></i>
-            <span>FLL Robotics</span>
+            <i class="fas fa-hands-helping"></i>
+            <span>100+ hrs Mentorship</span>
           </div>
           <div class="highlight-item fade-in">
-            <i class="fas fa-trophy"></i>
-            <span>TMSCA State Top 20</span>
+            <i class="fas fa-khanda"></i>
+            <span>Codewars 4 Kyu</span>
           </div>
           <div class="highlight-item fade-in">
-            <i class="fas fa-calculator"></i>
-            <span>Math Champion</span>
+            <i class="fas fa-medal"></i>
+            <span>TMSCA Top 20</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Skills Section with Progress Bars -->
+  <!-- Skills Section -->
   <section id="skills">
     <div class="section-header">
       <div>
         <h2 class="section-title fade-in">Technical <span>Skills</span></h2>
-        <p class="section-subtitle fade-in">Technologies and proficiency levels</p>
+        <p class="section-subtitle fade-in">Technologies and tools I work with</p>
       </div>
     </div>
     <div class="skills-container">
@@ -1015,19 +1115,13 @@
           <div class="skill-icon"><i class="fab fa-python"></i></div>
           <div class="skill-title">Programming</div>
         </div>
-        <div class="skill-progress">
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Python</span><span class="skill-percent">95%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="95"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Lua</span><span class="skill-percent">80%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="80"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Algorithms</span><span class="skill-percent">85%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
-          </div>
+        <div class="skill-list">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Lua</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Algorithms</span>
+          <span class="skill-tag">Data Structures</span>
+          <span class="skill-tag">OOP</span>
         </div>
       </div>
       
@@ -1036,19 +1130,13 @@
           <div class="skill-icon"><i class="fas fa-brain"></i></div>
           <div class="skill-title">AI & Machine Learning</div>
         </div>
-        <div class="skill-progress">
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Supervised Learning</span><span class="skill-percent">75%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="75"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Data Analysis</span><span class="skill-percent">80%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="80"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Kaggle</span><span class="skill-percent">85%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
-          </div>
+        <div class="skill-list">
+          <span class="skill-tag">Supervised Learning</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Keras</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">NLP Basics</span>
         </div>
       </div>
       
@@ -1057,15 +1145,12 @@
           <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
           <div class="skill-title">Cybersecurity</div>
         </div>
-        <div class="skill-progress">
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">AES Encryption</span><span class="skill-percent">70%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="70"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Cryptography</span><span class="skill-percent">65%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="65"></div></div>
-          </div>
+        <div class="skill-list">
+          <span class="skill-tag">Network Security</span>
+          <span class="skill-tag">Penetration Testing</span>
+          <span class="skill-tag">TryHackMe</span>
+          <span class="skill-tag">Cryptography</span>
+          <span class="skill-tag">AES</span>
         </div>
       </div>
       
@@ -1074,15 +1159,12 @@
           <div class="skill-icon"><i class="fas fa-gamepad"></i></div>
           <div class="skill-title">Game Development</div>
         </div>
-        <div class="skill-progress">
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Roblox/Lua</span><span class="skill-percent">90%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="90"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Game Design</span><span class="skill-percent">85%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
-          </div>
+        <div class="skill-list">
+          <span class="skill-tag">Roblox/Lua</span>
+          <span class="skill-tag">Game Design</span>
+          <span class="skill-tag">Level Design</span>
+          <span class="skill-tag">Player Mechanics</span>
+          <span class="skill-tag">Multiplayer</span>
         </div>
       </div>
       
@@ -1091,15 +1173,12 @@
           <div class="skill-icon"><i class="fas fa-microchip"></i></div>
           <div class="skill-title">Robotics</div>
         </div>
-        <div class="skill-progress">
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">LEGO EV3</span><span class="skill-percent">90%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="90"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">FLL Competition</span><span class="skill-percent">85%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
-          </div>
+        <div class="skill-list">
+          <span class="skill-tag">LEGO EV3</span>
+          <span class="skill-tag">FLL</span>
+          <span class="skill-tag">Sensors</span>
+          <span class="skill-tag">Motor Control</span>
+          <span class="skill-tag">Pathfinding</span>
         </div>
       </div>
       
@@ -1108,81 +1187,118 @@
           <div class="skill-icon"><i class="fas fa-cube"></i></div>
           <div class="skill-title">3D Design</div>
         </div>
-        <div class="skill-progress">
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Blender</span><span class="skill-percent">70%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="70"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info"><span class="skill-name">Modeling</span><span class="skill-percent">75%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="75"></div></div>
-          </div>
+        <div class="skill-list">
+          <span class="skill-tag">Blender</span>
+          <span class="skill-tag">Modeling</span>
+          <span class="skill-tag">Sculpting</span>
+          <span class="skill-tag">UV Mapping</span>
+          <span class="skill-tag">Texturing</span>
+        </div>
+      </div>
+      
+      <div class="skill-category fade-in">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-globe"></i></div>
+          <div class="skill-title">Web Development</div>
+        </div>
+        <div class="skill-list">
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Responsive Design</span>
+        </div>
+      </div>
+      
+      <div class="skill-category fade-in">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-calculator"></i></div>
+          <div class="skill-title">Mathematics</div>
+        </div>
+        <div class="skill-list">
+          <span class="skill-tag">TMSCA</span>
+          <span class="skill-tag">Number Sense</span>
+          <span class="skill-tag">Calculus Prep</span>
+          <span class="skill-tag">Logic</span>
+          <span class="skill-tag">G&T Program</span>
+        </div>
+      </div>
+      
+      <div class="skill-category fade-in">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-tools"></i></div>
+          <div class="skill-title">Tools & Platforms</div>
+        </div>
+        <div class="skill-list">
+          <span class="skill-tag">Replit</span>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Kaggle</span>
+          <span class="skill-tag">LeetCode</span>
+          <span class="skill-tag">Codewars</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section with Modals -->
+  <!-- Projects Section -->
   <section id="projects">
     <div class="section-header">
       <div>
         <h2 class="section-title fade-in">Featured <span>Projects</span></h2>
-        <p class="section-subtitle fade-in">Click on any project for more details</p>
+        <p class="section-subtitle fade-in">Real-world projects demonstrating technical skills</p>
       </div>
     </div>
     <div class="projects-grid">
-      <div class="project-card fade-in" onclick="openModal('titanic')">
+      <div class="project-card fade-in">
         <div class="project-header">
           <div class="project-number">01</div>
           <div class="project-links">
-            <a href="https://www.kaggle.com/code/kaglelearner3141/mlm1-the-titanic" target="_blank" class="project-link" onclick="event.stopPropagation()"><i class="fab fa-kaggle"></i></a>
-            <a href="#" class="project-link" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+            <a href="https://www.kaggle.com/code/kaglelearner3141/mlm1-the-titanic" target="_blank" class="project-link"><i class="fab fa-kaggle"></i></a>
           </div>
         </div>
         <h3 class="project-title">Titanic Survival Prediction</h3>
         <p class="project-desc">
-          Machine learning model on Kaggle to predict survival outcomes. Binary classification 
-          with data cleaning, feature engineering, and model training.
+          ML model for binary classification on Kaggle. Data cleaning, feature engineering, 
+          model training achieving 78% accuracy on test data.
         </p>
         <div class="project-tech">
           <span class="tech-tag">Python</span>
           <span class="tech-tag">ML</span>
           <span class="tech-tag">Kaggle</span>
+          <span class="tech-tag">Pandas</span>
         </div>
       </div>
       
-      <div class="project-card fade-in" onclick="openModal('roblox')">
+      <div class="project-card fade-in">
         <div class="project-header">
           <div class="project-number">02</div>
           <div class="project-links">
-            <a href="https://www.roblox.com/games/14075227855/Rebirth-Simulator" target="_blank" class="project-link" onclick="event.stopPropagation()"><i class="fas fa-gamepad"></i></a>
-            <a href="#" class="project-link" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+            <a href="https://www.roblox.com/games/14075227855/Rebirth-Simulator" target="_blank" class="project-link"><i class="fas fa-gamepad"></i></a>
           </div>
         </div>
-        <h3 class="project-title">Roblox Obby Game</h3>
+        <h3 class="project-title">Roblox Game Portfolio</h3>
         <p class="project-desc">
-          Fully functional obstacle course game with custom player mechanics, checkpoints, 
-          and competitive leaderboards using Lua scripting.
+          Multiple published Roblox games with thousands of plays. Custom Lua scripting, 
+          player mechanics, checkpoints, and leaderboards.
         </p>
         <div class="project-tech">
           <span class="tech-tag">Lua</span>
           <span class="tech-tag">Roblox</span>
-          <span class="tech-tag">Game Dev</span>
+          <span class="tech-tag">Game Design</span>
         </div>
       </div>
       
-      <div class="project-card fade-in" onclick="openModal('aes')">
+      <div class="project-card fade-in">
         <div class="project-header">
           <div class="project-number">03</div>
           <div class="project-links">
-            <a href="https://replit.com/@ArjunSharm/A-test#main.py" target="_blank" class="project-link" onclick="event.stopPropagation()"><i class="fas fa-code"></i></a>
-            <a href="#" class="project-link" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+            <a href="https://replit.com/@ArjunSharm/A-test#main.py" target="_blank" class="project-link"><i class="fas fa-code"></i></a>
           </div>
         </div>
         <h3 class="project-title">AES Encryption System</h3>
         <p class="project-desc">
-          Implementation of AES-128 encryption from scratch. NIST-approved standard for 
-          securing sensitive data using cryptographic logic.
+          Implementation of AES-128 from scratch. SubBytes, ShiftRows, MixColumns, 
+          key expansion - all implemented in Python.
         </p>
         <div class="project-tech">
           <span class="tech-tag">Python</span>
@@ -1191,17 +1307,17 @@
         </div>
       </div>
       
-      <div class="project-card fade-in" onclick="openModal('fll')">
+      <div class="project-card fade-in">
         <div class="project-header">
           <div class="project-number">04</div>
           <div class="project-links">
-            <a href="#" class="project-link" onclick="event.stopPropagation()"><i class="fas fa-robot"></i></a>
+            <a href="#" class="project-link"><i class="fas fa-robot"></i></a>
           </div>
         </div>
         <h3 class="project-title">FLL Competition Robot</h3>
         <p class="project-desc">
-          Autonomous LEGO MINDSTORMS EV3 robot for FIRST LEGO League. Completed complex 
-          missions with sensors and precise motor control.
+          Autonomous EV3 robot for FIRST LEGO League. Color/ultrasonic sensors, 
+          pathfinding, and complex mission completion.
         </p>
         <div class="project-tech">
           <span class="tech-tag">EV3</span>
@@ -1212,18 +1328,104 @@
     </div>
   </section>
 
-  <!-- Project Modal -->
-  <div class="modal-overlay" id="projectModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="modalTitle">Project</h2>
-        <div class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></div>
+  <!-- Volunteer Section -->
+  <section id="volunteer" style="background: rgba(22, 22, 31, 0.5);">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title fade-in">Volunteer <span>Experience</span></h2>
+        <p class="section-subtitle fade-in">Giving back to the tech community</p>
       </div>
-      <div id="modalBody"></div>
     </div>
-  </div>
+    <div class="volunteer-card fade-in">
+      <div class="volunteer-icon">🤝</div>
+      <div>
+        <h3 class="volunteer-title">STEM Mentor & Instructor</h3>
+        <p class="volunteer-org">SMARTCore Labs | Pearland, Texas</p>
+        <span class="volunteer-hours">100+ Hours</span>
+        <p class="volunteer-desc">
+          Volunteered over 100 hours across Summer 2025, Winter 2025, and Spring 2026 sessions at a professional 
+          STEM education center. Taught Python, HTML, CSS, Blender 3D modeling, and game development to students 
+          ranging from young learners using Scratch to advanced teens in AI, robotics, and engineering pathways. 
+          Mentored students through hands-on builds, explained complex concepts clearly, and debugged projects in 
+          real-time. This role demonstrated leadership, communication, and a genuine commitment to making technology 
+          education accessible.
+        </p>
+      </div>
+    </div>
+  </section>
 
-  <!-- Experience Section with Interactive Timeline -->
+  <!-- Certifications Section -->
+  <section id="certs">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title fade-in">Certifications & <span>Credentials</span></h2>
+        <p class="section-subtitle fade-in">Professional certifications in progress</p>
+      </div>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card fade-in">
+        <div class="cert-badge"><i class="fas fa-brain"></i></div>
+        <h4 class="cert-title">Machine Learning Specialization</h4>
+        <p class="cert-issuer">Stanford University & DeepLearning.AI</p>
+        <span class="cert-status">In Progress</span>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
+          Covers foundational AI concepts, practical ML skills, building/training/deploying ML models
+        </p>
+      </div>
+      
+      <div class="cert-card fade-in">
+        <div class="cert-badge"><i class="fab fa-python"></i></div>
+        <h4 class="cert-title">IBM AI Developer Professional Certificate</h4>
+        <p class="cert-issuer">IBM</p>
+        <span class="cert-status">In Progress</span>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
+          AI development, generative AI, deep learning, and real-world application deployment
+        </p>
+      </div>
+      
+      <div class="cert-card fade-in">
+        <div class="cert-badge"><i class="fas fa-shield-alt"></i></div>
+        <h4 class="cert-title">Google Cybersecurity Professional Certificate</h4>
+        <p class="cert-issuer">Google</p>
+        <span class="cert-status">In Progress</span>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
+          Threat analysis, network security, and security operations fundamentals
+        </p>
+      </div>
+      
+      <div class="cert-card fade-in">
+        <div class="cert-badge"><i class="fas fa-lock"></i></div>
+        <h4 class="cert-title">TryHackMe Cybersecurity Paths</h4>
+        <p class="cert-issuer">TryHackMe</p>
+        <span class="cert-status">In Progress</span>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
+          Hands-on cybersecurity learning with SOC analysis, penetration testing, web security
+        </p>
+      </div>
+      
+      <div class="cert-card fade-in">
+        <div class="cert-badge"><i class="fas fa-khanda"></i></div>
+        <h4 class="cert-title">Codewars 4 Kyu</h4>
+        <p class="cert-issuer">Codewars</p>
+        <span class="cert-status completed">Achieved</span>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
+          Upper tier global ranking - requires serious algorithmic thinking and complex CS concepts
+        </p>
+      </div>
+      
+      <div class="cert-card fade-in">
+        <div class="cert-badge"><i class="fas fa-trophy"></i></div>
+        <h4 class="cert-title">USACO Silver Division</h4>
+        <p class="cert-issuer">USA Computing Olympiad</p>
+        <span class="cert-status completed">Achieved</span>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
+          One of the few middle schoolers at this competitive programming level
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
   <section id="experience">
     <div class="section-header">
       <div>
@@ -1238,9 +1440,8 @@
           <h3 class="timeline-title">USACO Silver Division</h3>
           <p class="timeline-org">USA Computing Olympiad</p>
           <p class="timeline-desc">
-            Progressed from Bronze to Silver division. Solving complex problems involving 
-            data structures, dynamic programming, and graph algorithms. One of the few 
-            middle schoolers in the Silver division.
+            Progressed from Bronze to Silver. Solving complex problems in data structures, 
+            dynamic programming, and graph algorithms. One of few middle schoolers in Silver.
           </p>
         </div>
       </div>
@@ -1251,9 +1452,8 @@
           <h3 class="timeline-title">TMSCA State Competition - Top 20 Science</h3>
           <p class="timeline-org">Texas Math & Science Coaches Association</p>
           <p class="timeline-desc">
-            Secured Top 20 in Science at the state competition in San Antonio. Part of 
-            Pearland Junior High West team that achieved 2nd place in sweepstakes, 
-            2nd in team Math, and 5th in team Science among 113 competing students.
+            Secured Top 20 in Science at state in San Antonio. Part of Pearland Junior High West 
+            team that took 2nd place in sweepstakes, 2nd in Math, 5th in Science among 113 students.
           </p>
         </div>
       </div>
@@ -1264,9 +1464,8 @@
           <h3 class="timeline-title">FIRST LEGO League (FLL)</h3>
           <p class="timeline-org">The Pearnauts | Coach: Ms. Beiker</p>
           <p class="timeline-desc">
-            Built and programmed autonomous robots using LEGO MINDSTORMS EV3. Designed 
-            solutions for real-world engineering challenges and presented innovation 
-            projects at regional competitions.
+            Built and programmed autonomous EV3 robots for FLL competition. Designed solutions 
+            for real-world engineering challenges and presented innovation projects.
           </p>
         </div>
       </div>
@@ -1277,20 +1476,8 @@
           <h3 class="timeline-title">Python Development</h3>
           <p class="timeline-org">Self-taught & Structured Learning</p>
           <p class="timeline-desc">
-            3+ years of Python programming including data structures, algorithms, 
-            file I/O, and integration with ML libraries like Pandas and Scikit-learn.
-          </p>
-        </div>
-      </div>
-      
-      <div class="timeline-item fade-in">
-        <div class="timeline-card">
-          <div class="timeline-date">2022 - Present</div>
-          <h3 class="timeline-title">Gifted & Talented Program</h3>
-          <p class="timeline-org">Academic Enrichment</p>
-          <p class="timeline-desc">
-            Enrolled in advanced academic program providing enrichment in mathematics, 
-            science, and logical reasoning beyond standard curriculum.
+            3+ years of Python including data structures, algorithms, file I/O, and ML libraries 
+            like Pandas and Scikit-learn.
           </p>
         </div>
       </div>
@@ -1340,174 +1527,84 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2026 Arjun Sharma. Built with <i class="fas fa-heart" style="color: var(--accent);"></i> and lots of <a href="#">code</a>.</p>
   </footer>
 
   <script>
-    // Project modal data
-    const projectData = {
-      titanic: {
-        title: "Titanic Survival Prediction",
-        content: `
-          <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7;">
-            Built a machine learning model on Kaggle to predict survival outcomes for Titanic passengers. 
-            This binary classification project gave me hands-on experience with real-world data science workflows.
-          </p>
-          <h4 style="color: var(--accent); margin-bottom: 12px;">Key Achievements:</h4>
-          <ul style="color: var(--text-muted); margin-bottom: 20px;">
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Performed data cleaning and preprocessing on 891 training samples</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Selected relevant features: Pclass, Sex, Age, Fare, Embarked</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Trained classification model achieving 78% accuracy</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Generated predictions for 418 test samples</li>
-          </ul>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Python</span>
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Pandas</span>
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Scikit-learn</span>
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Kaggle</span>
-          </div>
-        `
-      },
-      roblox: {
-        title: "Roblox Obby Game",
-        content: `
-          <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7;">
-            Developed multiple fully functional obstacle course games using Lua scripting in Roblox Studio. 
-            Built custom player mechanics, game events, and interactive elements within a multiplayer environment.
-          </p>
-          <h4 style="color: var(--accent); margin-bottom: 12px;">Key Achievements:</h4>
-          <ul style="color: var(--text-muted); margin-bottom: 20px;">
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Created 15+ unique obstacle types with varying difficulty levels</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Implemented checkpoint system with player respawn logic</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Added timer and leaderboard for competitive play</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Designed themed zones: Lava, Sky, Ice environments</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Published multiple games with thousands of plays</li>
-          </ul>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Lua</span>
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Roblox Studio</span>
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Game Design</span>
-          </div>
-        `
-      },
-      aes: {
-        title: "AES Encryption System",
-        content: `
-          <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7;">
-            Implemented the Advanced Encryption Standard (AES-128) algorithm from scratch using Python in Replit IDE. 
-            AES is a NIST-approved encryption standard used globally for securing sensitive data.
-          </p>
-          <h4 style="color: var(--accent); margin-bottom: 12px;">Key Achievements:</h4>
-          <ul style="color: var(--text-muted); margin-bottom: 20px;">
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Implemented SubBytes transformation with S-Box lookup table</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Built ShiftRows and MixColumns operations</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Created key expansion algorithm for round keys generation</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Added both encryption and decryption functions</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Sophisticated project for middle school level</li>
-          </ul>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Python</span>
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Cryptography</span>
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Replit IDE</span>
-          </div>
-        `
-      },
-      fll: {
-        title: "FLL Competition Robot",
-        content: `
-          <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7;">
-            Designed and programmed an autonomous LEGO MINDSTORMS EV3 robot for FIRST LEGO League competition. 
-            The team was called "The Pearnauts" coached by Ms. Beiker during 6th grade.
-          </p>
-          <h4 style="color: var(--accent); margin-bottom: 12px;">Key Achievements:</h4>
-          <ul style="color: var(--text-muted); margin-bottom: 20px;">
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Built robot with color, ultrasonic, and touch sensors</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Programmed autonomous pathfinding and line following</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Created reusable, reliable mission sequences</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Developed innovation project solution and presentation</li>
-            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 10px;"></i> Participated in regional FLL competition</li>
-          </ul>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">EV3 Blockly</span>
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">Robotics</span>
-            <span style="padding: 8px 16px; background: var(--bg-secondary); border-radius: 8px; font-size: 14px;">FLL</span>
-          </div>
-        `
-      }
-    };
+    // Typewriter effect
+    const phrases = [
+      "Student Developer",
+      "USACO Silver Competitor",
+      "Codewars 4 Kyu",
+      "ML/AI Explorer",
+      "STEM Mentor"
+    ];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typewriter = document.getElementById('typewriter');
 
-    // Modal functions
-    function openModal(projectId) {
-      const project = projectData[projectId];
-      document.getElementById('modalTitle').textContent = project.title;
-      document.getElementById('modalBody').innerHTML = project.content;
-      document.getElementById('projectModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
+    function type() {
+      const currentPhrase = phrases[phraseIndex];
+      
+      if (isDeleting) {
+        typewriter.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typewriter.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let typeSpeed = isDeleting ? 50 : 100;
+
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        typeSpeed = 2000;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        typeSpeed = 500;
+      }
+
+      setTimeout(type, typeSpeed);
     }
 
-    function closeModal() {
-      document.getElementById('projectModal').classList.remove('active');
-      document.body.style.overflow = '';
+    type();
+
+    // Create floating particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+      particlesContainer.appendChild(particle);
     }
-
-    // Close modal on overlay click
-    document.getElementById('projectModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('projectModal')) {
-        closeModal();
-      }
-    });
-
-    // Close modal on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
 
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
 
     // Scroll animation observer
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          
-          // Animate progress bars
-          if (entry.target.querySelectorAll('.progress-fill')) {
-            entry.target.querySelectorAll('.progress-fill').forEach(bar => {
-              setTimeout(() => {
-                bar.style.width = bar.getAttribute('data-width') + '%';
-              }, 300);
-            });
-          }
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    document.querySelectorAll('.fade-in, .timeline-item').forEach(el => {
-      observer.observe(el);
-    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Smooth scroll for nav links
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       });
     });
   </script>
