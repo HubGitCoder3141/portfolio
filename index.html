@@ -4,19 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arjun Sharma | Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     :root {
-      --bg: #0a0a0f;
-      --card-bg: #16161f;
-      --primary: #6366f1;
-      --primary-light: #818cf8;
-      --secondary: #22d3ee;
-      --tertiary: #f472b6;
-      --accent-yellow: #facc15;
-      --accent-green: #4ade80;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
+      --bg-primary: #0d0d12;
+      --bg-secondary: #141419;
+      --bg-card: #1a1a22;
+      --accent: #e84a5f;
+      --accent-secondary: #ff847a;
+      --accent-tertiary: #2a2a3a;
+      --text-primary: #fefefe;
+      --text-secondary: #a0a0a8;
+      --text-muted: #6b6b75;
+      --border: rgba(255, 255, 255, 0.06);
+      --shadow: rgba(0, 0, 0, 0.4);
     }
 
     * {
@@ -30,270 +32,661 @@
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Outfit', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    .bg-gradient {
+    /* Animated Background */
+    .bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bg-canvas::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(232, 74, 95, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(255, 132, 122, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(42, 42, 58, 0.5) 0%, transparent 60%);
+      animation: bgFloat 20s ease-in-out infinite;
+    }
+
+    @keyframes bgFloat {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, 2%) rotate(1deg); }
+      66% { transform: translate(-1%, 1%) rotate(-1deg); }
+    }
+
+    /* Navigation */
+    nav {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 80%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 60% 40%, rgba(244, 114, 182, 0.08) 0%, transparent 40%);
-      pointer-events: none;
-      z-index: -1;
+      z-index: 1000;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      background: rgba(13, 13, 18, 0.8);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
+    nav.scrolled {
+      padding: 14px 40px;
+      background: rgba(13, 13, 18, 0.95);
+    }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     /* Hero Section */
     .hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
+      padding: 120px 40px 80px;
       position: relative;
-      padding: 40px 20px;
     }
 
     .hero-content {
-      animation: fadeInUp 1s ease;
+      max-width: 800px;
+    }
+
+    .hero-greeting {
+      font-size: 16px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      animation: fadeInUp 0.8s ease;
     }
 
     .hero-name {
-      font-size: clamp(40px, 10vw, 80px);
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--tertiary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 16px;
-      letter-spacing: -2px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(48px, 8vw, 80px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease 0.1s backwards;
     }
 
-    .hero-tagline {
-      font-size: clamp(18px, 4vw, 24px);
+    .hero-name .highlight {
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 3vw, 32px);
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-bottom: 36px;
+      animation: fadeInUp 0.8s ease 0.2s backwards;
+    }
+
+    .hero-desc {
+      font-size: 18px;
       color: var(--text-muted);
       max-width: 600px;
-      margin: 0 auto 40px;
-      font-weight: 300;
+      margin-bottom: 40px;
+      line-height: 1.8;
+      animation: fadeInUp 0.8s ease 0.3s backwards;
     }
 
     .hero-cta {
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
-      justify-content: center;
+      animation: fadeInUp 0.8s ease 0.4s backwards;
     }
 
     .btn {
-      padding: 14px 32px;
-      border-radius: 50px;
+      padding: 16px 36px;
+      border-radius: 8px;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 15px;
       text-decoration: none;
       transition: all 0.3s ease;
       cursor: pointer;
       border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      background: var(--accent);
       color: white;
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+      background: var(--accent-secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(232, 74, 95, 0.3);
     }
 
-    .btn-outline {
+    .btn-secondary {
       background: transparent;
-      color: var(--text);
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
     }
 
-    .btn-outline:hover {
-      border-color: var(--secondary);
-      color: var(--secondary);
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
-    .scroll-indicator {
-      position: absolute;
-      bottom: 40px;
-      animation: bounce 2s infinite;
+    /* Stats Section */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+      animation: fadeInUp 0.8s ease 0.5s backwards;
+    }
+
+    .stat-item {
+      background: var(--bg-card);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 14px;
       color: var(--text-muted);
-      font-size: 24px;
     }
 
-    /* Sections */
+    /* Section Styles */
     section {
-      padding: 100px 0;
+      padding: 100px 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 50px;
     }
 
     .section-title {
-      font-size: 36px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 42px;
       font-weight: 700;
-      margin-bottom: 40px;
-      text-align: center;
     }
 
     .section-title span {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent);
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      margin-top: 12px;
+      font-size: 16px;
     }
 
     /* About Section */
-    .about {
-      background: rgba(22, 22, 31, 0.5);
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 50px;
+      align-items: start;
     }
 
-    .about-card {
-      background: var(--card-bg);
-      border-radius: 24px;
-      padding: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      max-width: 900px;
-      margin: 0 auto;
+    .about-image {
+      position: relative;
     }
 
-    .about-text {
-      font-size: 17px;
-      color: var(--text-muted);
+    .about-image-wrapper {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+    }
+
+    .about-image::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: -20px;
+      bottom: -20px;
+      border: 2px solid var(--accent);
+      border-radius: 20px;
+      z-index: -1;
+    }
+
+    .about-content h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+
+    .about-content p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
       line-height: 1.8;
     }
 
-    .about-text p {
-      margin-bottom: 20px;
+    .about-highlights {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg-card);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .highlight-item i {
+      color: var(--accent);
+      font-size: 20px;
     }
 
     /* Skills Section */
-    .skills-grid {
+    .skills-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
     .skill-category {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.3s ease;
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 30px;
+      border: 1px solid var(--border);
+      transition: all 0.4s ease;
     }
 
     .skill-category:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px var(--shadow);
+    }
+
+    .skill-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
     }
 
     .skill-icon {
-      font-size: 32px;
-      margin-bottom: 16px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
     }
 
     .skill-title {
       font-size: 20px;
       font-weight: 600;
-      margin-bottom: 16px;
-      color: var(--primary-light);
     }
 
     .skill-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
     }
 
     .skill-tag {
-      background: rgba(99, 102, 241, 0.15);
-      color: var(--primary-light);
-      padding: 6px 14px;
-      border-radius: 20px;
+      padding: 10px 18px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
       font-size: 14px;
-      font-weight: 500;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
     }
 
     /* Projects Section */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
     }
 
     .project-card {
-      background: var(--card-bg);
+      background: var(--bg-card);
       border-radius: 20px;
-      padding: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.3s ease;
+      padding: 36px;
+      border: 1px solid var(--border);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
     }
 
     .project-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--secondary);
-      box-shadow: 0 25px 50px rgba(34, 211, 238, 0.1);
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px var(--shadow);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
     }
 
     .project-number {
-      font-size: 48px;
-      font-weight: 800;
-      color: rgba(99, 102, 241, 0.2);
-      margin-bottom: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 60px;
+      font-weight: 700;
+      color: var(--accent-tertiary);
+      line-height: 1;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .project-link {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .project-link:hover {
+      background: var(--accent);
+      color: white;
     }
 
     .project-title {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
+      margin-bottom: 16px;
     }
 
     .project-desc {
-      color: var(--text-muted);
-      font-size: 15px;
-      margin-bottom: 20px;
+      color: var(--text-secondary);
       line-height: 1.7;
+      margin-bottom: 24px;
     }
 
     .project-tech {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      margin-bottom: 20px;
     }
 
     .tech-tag {
-      background: rgba(34, 211, 238, 0.15);
-      color: var(--secondary);
-      padding: 5px 12px;
-      border-radius: 15px;
+      padding: 6px 14px;
+      background: rgba(232, 74, 95, 0.1);
+      color: var(--accent);
+      border-radius: 6px;
       font-size: 13px;
+      font-weight: 500;
+    }
+
+    .project-features {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .project-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .project-features li i {
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    /* Experience Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--accent-tertiary);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 40px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -34px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .timeline-date {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-org {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .timeline-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Contact Section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+
+    .contact-info h3 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      line-height: 1.7;
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent);
+      transform: translateX(10px);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .contact-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .contact-value {
+      font-size: 16px;
       font-weight: 500;
     }
 
     /* Footer */
     footer {
+      padding: 40px;
       text-align: center;
-      padding: 40px 20px;
+      border-top: 1px solid var(--border);
       color: var(--text-muted);
       font-size: 14px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
     }
 
     /* Animations */
@@ -308,220 +701,537 @@
       }
     }
 
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     /* Responsive */
-    @media (max-width: 768px) {
-      .about-card {
-        padding: 24px;
+    @media (max-width: 1024px) {
+      .skills-container {
+        grid-template-columns: repeat(2, 1fr);
       }
-      
-      .skill-category, .project-card {
-        padding: 24px;
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 16px 20px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero {
+        padding: 100px 20px 60px;
+      }
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      section {
+        padding: 60px 20px;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-highlights {
+        grid-template-columns: 1fr;
+      }
+      .skills-container {
+        grid-template-columns: 1fr;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="bg-gradient"></div>
+  <!-- Animated Background -->
+  <div class="bg-canvas"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <i class="fas fa-code"></i>
+      Arjun<span>.</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <h1 class="hero-name">Arjun Sharma</h1>
-      <p class="hero-tagline">Web Developer | Student | Tech Enthusiast</p>
+      <p class="hero-greeting">Hello, I'm</p>
+      <h1 class="hero-name">Arjun <span class="highlight">Sharma</span></h1>
+      <p class="hero-title">Student Developer | Algorithm Enthusiast | Robotics & AI Explorer</p>
+      <p class="hero-desc">
+        An 8th-grade student with 3+ years of programming experience, specializing in Python, 
+        competitive programming (USACO), robotics, and machine learning. Building the future, one algorithm at a time.
+      </p>
       <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#skills" class="btn btn-outline">My Skills</a>
+        <a href="#projects" class="btn btn-primary">
+          <i class="fas fa-folder-open"></i> View Projects
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          <i class="fas fa-envelope"></i> Get in Touch
+        </a>
+      </div>
+      
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Years Coding</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Major Projects</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">8+</div>
+          <div class="stat-label">Technologies</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">USACO</div>
+          <div class="stat-label">Competitor</div>
+        </div>
       </div>
     </div>
-    <div class="scroll-indicator">↓</div>
   </section>
 
   <!-- About Section -->
-  <section class="about" id="about">
-    <div class="container">
-      <h2 class="section-title fade-in"><span>About Me</span></h2>
-      <div class="about-card fade-in">
-        <p class="about-text">
-          I am an 8th-grade student with a strong and growing foundation in software engineering, mathematics, and robotics. I have been programming in Python for 2–3 years, building a solid command of core programming concepts such as data structures, functions, loops, and logical problem-solving.
+  <section id="about">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">About <span>Me</span></h2>
+        <p class="section-subtitle">Building a foundation for the future of technology</p>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="about-image">
+        <div class="about-image-wrapper">
+          <i class="fas fa-user-graduate" style="color: white;"></i>
+        </div>
+      </div>
+      <div class="about-content">
+        <h3>Passionate Tech Enthusiast</h3>
+        <p>
+          I'm an 8th-grade student with a deep passion for software engineering, mathematics, and robotics. 
+          My journey in technology began 3 years ago with Python, and I've since expanded into competitive 
+          programming, machine learning, game development, and hardware engineering.
         </p>
-        <p class="about-text">
-          I have put my skills directly to the test by participating in the USA Computing Olympiad (USACO) — one of the most prestigious algorithmic programming competitions in the country. Competing in USACO at the middle school level demonstrates a level of technical ambition and algorithmic thinking that is rare among students my age.
+        <p>
+          I actively participate in the USA Computing Olympiad (USACO), one of the most prestigious 
+          algorithmic programming competitions in the United States. Competing at the middle school 
+          level demonstrates a level of technical ambition and problem-solving ability rarely seen among peers.
         </p>
-        <p class="about-text">
-          Alongside my Python development, I have one year of hands-on experience with LEGO MINDSTORMS EV3 block-based robotics programming, giving me practical exposure to both software and hardware systems. I am also actively expanding into artificial intelligence and machine learning.
+        <p>
+          Beyond coding, I have hands-on experience with LEGO MINDSTORMS EV3 robotics, participate in 
+          TMSCA mathematics competitions, and am currently expanding into AI and machine learning.
         </p>
-        <p class="about-text">
-          I compete in TMSCA mathematics competitions and am enrolled in a Gifted & Talented academic program. With competitive programming experience through USACO, hands-on robotics work, and a growing AI skill set, I am building exactly the kind of technical foundation that top technology companies seek in future engineers.
-        </p>
+        
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <i class="fas fa-brain"></i>
+            <span>AI/ML Explorer</span>
+          </div>
+          <div class="highlight-item">
+            <i class="fas fa-robot"></i>
+            <span>Robotics Builder</span>
+          </div>
+          <div class="highlight-item">
+            <i class="fas fa-trophy"></i>
+            <span>USACO Competitor</span>
+          </div>
+          <div class="highlight-item">
+            <i class="fas fa-calculator"></i>
+            <span>Math Champion</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Skills Section -->
   <section id="skills">
-    <div class="container">
-      <h2 class="section-title fade-in"><span>Skills</span></h2>
-      <div class="skills-grid">
-        <div class="skill-category fade-in">
-          <div class="skill-icon">🐍</div>
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Technical <span>Skills</span></h2>
+        <p class="section-subtitle">Technologies and tools I work with</p>
+      </div>
+    </div>
+    <div class="skills-container">
+      <div class="skill-category">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fab fa-python"></i></div>
           <div class="skill-title">Programming</div>
-          <div class="skill-list">
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">Lua</span>
-            <span class="skill-tag">Algorithms</span>
-          </div>
         </div>
-        <div class="skill-category fade-in">
-          <div class="skill-icon">🤖</div>
+        <div class="skill-list">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Lua</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Data Structures</span>
+          <span class="skill-tag">Algorithms</span>
+          <span class="skill-tag">OOP</span>
+        </div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-brain"></i></div>
           <div class="skill-title">AI & Machine Learning</div>
-          <div class="skill-list">
-            <span class="skill-tag">Supervised Learning</span>
-            <span class="skill-tag">Data Science</span>
-            <span class="skill-tag">Kaggle</span>
-          </div>
         </div>
-        <div class="skill-category fade-in">
-          <div class="skill-icon">🔐</div>
+        <div class="skill-list">
+          <span class="skill-tag">Supervised Learning</span>
+          <span class="skill-tag">Binary Classification</span>
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">Kaggle</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">Scikit-learn</span>
+        </div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
           <div class="skill-title">Cybersecurity</div>
-          <div class="skill-list">
-            <span class="skill-tag">AES Encryption</span>
-            <span class="skill-tag">Cryptography</span>
-            <span class="skill-tag">USACO</span>
-          </div>
         </div>
-        <div class="skill-category fade-in">
-          <div class="skill-icon">🎮</div>
+        <div class="skill-list">
+          <span class="skill-tag">AES Encryption</span>
+          <span class="skill-tag">Cryptography</span>
+          <span class="skill-tag">Bitwise Operations</span>
+          <span class="skill-tag">Security Principles</span>
+        </div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-gamepad"></i></div>
           <div class="skill-title">Game Development</div>
-          <div class="skill-list">
-            <span class="skill-tag">Roblox</span>
-            <span class="skill-tag">Lua Scripting</span>
-            <span class="skill-tag">Game Design</span>
-          </div>
         </div>
-        <div class="skill-category fade-in">
-          <div class="skill-icon">🤖</div>
+        <div class="skill-list">
+          <span class="skill-tag">Roblox</span>
+          <span class="skill-tag">Lua Scripting</span>
+          <span class="skill-tag">Game Design</span>
+          <span class="skill-tag">Level Design</span>
+          <span class="skill-tag">Player Mechanics</span>
+          <span class="skill-tag">Event Handling</span>
+        </div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-microchip"></i></div>
           <div class="skill-title">Robotics</div>
-          <div class="skill-list">
-            <span class="skill-tag">LEGO EV3</span>
-            <span class="skill-tag">FLL</span>
-            <span class="skill-tag">Sensors</span>
-          </div>
         </div>
-        <div class="skill-category fade-in">
-          <div class="skill-icon">🎨</div>
-          <div class="skill-title">Design</div>
-          <div class="skill-list">
-            <span class="skill-tag">Blender 3D</span>
-            <span class="skill-tag">Modeling</span>
-            <span class="skill-tag">Animation</span>
-          </div>
+        <div class="skill-list">
+          <span class="skill-tag">LEGO EV3</span>
+          <span class="skill-tag">FIRST LEGO League</span>
+          <span class="skill-tag">Sensor Programming</span>
+          <span class="skill-tag">Motor Control</span>
+          <span class="skill-tag">Autonomous Systems</span>
         </div>
-        <div class="skill-category fade-in">
-          <div class="skill-icon">📐</div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-cube"></i></div>
+          <div class="skill-title">3D Design</div>
+        </div>
+        <div class="skill-list">
+          <span class="skill-tag">Blender</span>
+          <span class="skill-tag">3D Modeling</span>
+          <span class="skill-tag">Sculpting</span>
+          <span class="skill-tag">UV Mapping</span>
+          <span class="skill-tag">Texturing</span>
+          <span class="skill-tag">Animation</span>
+        </div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-calculator"></i></div>
           <div class="skill-title">Mathematics</div>
-          <div class="skill-list">
-            <span class="skill-tag">TMSCA</span>
-            <span class="skill-tag">Competitive Math</span>
-            <span class="skill-tag">Logic</span>
-          </div>
         </div>
-        <div class="skill-category fade-in">
-          <div class="skill-icon">☁️</div>
-          <div class="skill-title">Tools</div>
-          <div class="skill-list">
-            <span class="skill-tag">Replit</span>
-            <span class="skill-tag">GitHub</span>
-            <span class="skill-tag">Kaggle</span>
-          </div>
+        <div class="skill-list">
+          <span class="skill-tag">TMSCA Competitions</span>
+          <span class="skill-tag">Number Sense</span>
+          <span class="skill-tag">Calculations</span>
+          <span class="skill-tag">Logic & Reasoning</span>
+          <span class="skill-tag">G&T Program</span>
+        </div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-tools"></i></div>
+          <div class="skill-title">Tools & Platforms</div>
+        </div>
+        <div class="skill-list">
+          <span class="skill-tag">Replit IDE</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Kaggle</span>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">LEGO Software</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Projects Section -->
-  <section class="about" id="projects">
-    <div class="container">
-      <h2 class="section-title fade-in"><span>Projects</span></h2>
-      <div class="projects-grid">
-        <div class="project-card fade-in">
+  <section id="projects">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <p class="section-subtitle">Real-world projects demonstrating technical skills</p>
+      </div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-header">
           <div class="project-number">01</div>
-          <h3 class="project-title">Titanic ML Project</h3>
-          <p class="project-desc">
-            Built a machine learning model on Kaggle to predict survival outcomes for Titanic passengers. This classic binary classification project involved data cleaning, feature selection, and model training — giving me hands-on experience with real-world data science workflows.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Machine Learning</span>
-            <span class="tech-tag">Kaggle</span>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fab fa-kaggle"></i></a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
           </div>
         </div>
-        <div class="project-card fade-in">
+        <h3 class="project-title">Titanic Survival Prediction</h3>
+        <p class="project-desc">
+          Built a machine learning model on Kaggle to predict survival outcomes for Titanic passengers. 
+          This binary classification project involved real-world data science workflows including data 
+          cleaning, feature engineering, model training, and prediction on unseen data.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Machine Learning</span>
+          <span class="tech-tag">Kaggle</span>
+          <span class="tech-tag">Pandas</span>
+        </div>
+        <ul class="project-features">
+          <li><i class="fas fa-check-circle"></i> Performed data cleaning and preprocessing on 891 training samples</li>
+          <li><i class="fas fa-check-circle"></i> Selected relevant features: Pclass, Sex, Age, Fare, etc.</li>
+          <li><i class="fas fa-check-circle"></i> Trained classification model achieving 78% accuracy</li>
+          <li><i class="fas fa-check-circle"></i> Generated predictions for 418 test samples</li>
+        </ul>
+      </div>
+      
+      <div class="project-card">
+        <div class="project-header">
           <div class="project-number">02</div>
-          <h3 class="project-title">Roblox Obby Game</h3>
-          <p class="project-desc">
-            Developed a fully functional obstacle course game using Lua scripting in Roblox. Built player mechanics, handled game events, and debugged live code. This project taught me core programming concepts within a real interactive game environment.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">Lua</span>
-            <span class="tech-tag">Game Design</span>
-            <span class="tech-tag">Roblox</span>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-gamepad"></i></a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
           </div>
         </div>
-        <div class="project-card fade-in">
+        <h3 class="project-title">Roblox Obby Game</h3>
+        <p class="project-desc">
+          Developed a fully functional obstacle course ("obby") game using Lua scripting in Roblox. 
+          Built custom player mechanics, game events, checkpoint systems, and interactive elements 
+          within a real multiplayer game environment.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Lua</span>
+          <span class="tech-tag">Roblox Studio</span>
+          <span class="tech-tag">Game Design</span>
+          <span class="tech-tag">Multiplayer</span>
+        </div>
+        <ul class="project-features">
+          <li><i class="fas fa-check-circle"></i> Created 15+ unique obstacle types with varying difficulty</li>
+          <li><i class="fas fa-check-circle"></i> Implemented checkpoint system with player respawn logic</li>
+          <li><i class="fas fa-check-circle"></i> Added timer and leaderboard for competitive play</li>
+          <li><i class="fas fa-check-circle"></i> Designed 3 themed zones: Lava, Sky, Ice</li>
+        </ul>
+      </div>
+      
+      <div class="project-card">
+        <div class="project-header">
           <div class="project-number">03</div>
-          <h3 class="project-title">AES Encryption</h3>
-          <p class="project-desc">
-            Implemented the Advanced Encryption Standard (AES) algorithm from scratch using Replit IDE. This project required strong understanding of cryptographic logic, bitwise operations, and advanced algorithmic thinking — a sophisticated undertaking for my level.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Cryptography</span>
-            <span class="tech-tag">Security</span>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-code"></i></a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
           </div>
         </div>
+        <h3 class="project-title">AES Encryption System</h3>
+        <p class="project-desc">
+          Implemented the Advanced Encryption Standard (AES) algorithm from scratch using Python in Replit IDE. 
+          AES is a NIST-approved encryption standard used globally for securing sensitive data, internet 
+          communications, and file encryption.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Cryptography</span>
+          <span class="tech-tag">AES-128</span>
+          <span class="tech-tag">Replit</span>
+        </div>
+        <ul class="project-features">
+          <li><i class="fas fa-check-circle"></i> Implemented SubBytes transformation with S-Box lookup</li>
+          <li><i class="fas fa-check-circle"></i> Built ShiftRows and MixColumns operations</li>
+          <li><i class="fas fa-check-circle"></i> Created key expansion algorithm for round keys</li>
+          <li><i class="fas fa-check-circle"></i> Added encryption and decryption functions</li>
+        </ul>
+      </div>
+      
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-number">04</div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-robot"></i></a>
+            <a href="#" class="project-link"><i class="fas fa-video"></i></a>
+          </div>
+        </div>
+        <h3 class="project-title">FLL Competition Robot</h3>
+        <p class="project-desc">
+          Designed and programmed an autonomous LEGO MINDSTORMS EV3 robot for FIRST LEGO League competition. 
+          The robot completed complex missions including object retrieval, navigation, and precise movements 
+          using sensors and motor controls.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">EV3 Blockly</span>
+          <span class="tech-tag">Robotics</span>
+          <span class="tech-tag">Sensors</span>
+          <span class="tech-tag">FLL</span>
+        </div>
+        <ul class="project-features">
+          <li><i class="fas fa-check-circle"></i> Built robot with color, ultrasonic, and touch sensors</li>
+          <li><i class="fas fa-check-circle"></i> Programmed autonomous pathfinding and line following</li>
+          <li><i class="fas fa-check-circle"></i> Created reusable, reliable mission sequences</li>
+          <li><i class="fas fa-check-circle"></i> Developed innovation project solution presentation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Experience & <span>Achievements</span></h2>
+        <p class="section-subtitle">Competitions and accomplishments</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">2024 - Present</div>
+        <h3 class="timeline-title">USACO Competitor</h3>
+        <p class="timeline-org">USA Computing Olympiad</p>
+        <p class="timeline-desc">
+          Participating in algorithmic programming contests at the Bronze and Silver levels. 
+          Solving complex problems involving data structures, dynamic programming, and graph algorithms.
+        </p>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">2023 - Present</div>
+        <h3 class="timeline-title">FIRST LEGO League (FLL)</h3>
+        <p class="timeline-org">FLL Robotics Competition</p>
+        <p class="timeline-desc">
+          Built and programmed autonomous robots using LEGO MINDSTORMS EV3. Competed in regional 
+          tournaments, designing solutions for real-world engineering challenges.
+        </p>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">2023 - Present</div>
+        <h3 class="timeline-title">TMSCA Math Competitions</h3>
+        <p class="timeline-org">Texas Math Competition</p>
+        <p class="timeline-desc">
+          Competing in Number Sense, Calculator, and General Math competitions. Developing quick 
+          calculation skills and mathematical reasoning under time pressure.
+        </p>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">2022 - Present</div>
+        <h3 class="timeline-title">Gifted & Talented Program</h3>
+        <p class="timeline-org">Academic Enrichment</p>
+        <p class="timeline-desc">
+          Enrolled in advanced academic program providing enrichment in mathematics, science, 
+          and logical reasoning beyond standard curriculum.
+        </p>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">2021 - Present</div>
+        <h3 class="timeline-title">Python Development</h3>
+        <p class="timeline-org">Self-taught & Structured Learning</p>
+        <p class="timeline-desc">
+          3+ years of Python programming including data structures, algorithms, file I/O, 
+          and integration with libraries like Pandas and Scikit-learn.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <p class="section-subtitle">Let's connect and collaborate</p>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Let's Build Something Amazing</h3>
+        <p>
+          I'm always interested in learning new technologies, collaborating on projects, 
+          and connecting with fellow tech enthusiasts. Whether you have a question or just 
+          want to say hi, feel free to reach out!
+        </p>
+      </div>
+      <div class="contact-methods">
+        <a href="#" class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">robotadvance2102@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://github.com/HubGitCoder3141" target="_blank" class="contact-item">
+          <div class="contact-icon"><i class="fab fa-github"></i></div>
+          <div>
+            <div class="contact-label">GitHub</div>
+            <div class="contact-value">@HubGitCoder3141</div>
+          </div>
+        </a>
+        <a href="#" class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="contact-label">Location</div>
+            <div class="contact-value">United States</div>
+          </div>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>© 2026 Arjun Sharma. Built with passion for technology.</p>
+    <p>&copy; 2026 Arjun Sharma. Built with <i class="fas fa-heart" style="color: var(--accent);"></i> and lots of <a href="#">coffee</a>.</p>
   </footer>
 
   <script>
-    // Scroll animation
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
       });
-    }, observerOptions);
-
-    document.querySelectorAll('.fade-in').forEach(el => {
-      observer.observe(el);
     });
   </script>
 </body>
