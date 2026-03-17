@@ -1045,6 +1045,33 @@
       font-weight: 500;
     }
 
+    /* Resume Section */
+    .resume-container { max-width: 900px; margin: 0 auto; }
+    .resume-header { text-align: center; margin-bottom: 40px; }
+    .resume-header h3 { font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; margin-bottom: 10px; }
+    .resume-header p { color: var(--text-muted); font-size: 16px; }
+    .resume-download { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--gradient); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; margin-top: 20px; transition: all 0.3s ease; }
+    .resume-download:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(232, 74, 95, 0.3); }
+    .resume-section { margin-bottom: 40px; }
+    .resume-section-title { font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: inline-block; }
+    .resume-item { background: var(--bg-card); border-radius: 14px; padding: 24px; margin-bottom: 16px; border: 1px solid var(--border); transition: all 0.3s ease; }
+    .resume-item:hover { border-color: var(--accent); transform: translateX(5px); }
+    .resume-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .resume-item-title { font-size: 18px; font-weight: 600; color: var(--text-primary); }
+    .resume-item-subtitle { font-size: 14px; color: var(--accent); }
+    .resume-item-date { font-size: 13px; color: var(--text-muted); }
+    .resume-item-desc { color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
+    .resume-skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .resume-skill-category { background: var(--bg-card); border-radius: 12px; padding: 20px; border: 1px solid var(--border); }
+    .resume-skill-title { font-size: 16px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+    .resume-skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .resume-skill-tag { padding: 6px 12px; background: var(--bg-secondary); border-radius: 6px; font-size: 13px; color: var(--text-secondary); }
+    .resume-awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .resume-award { background: var(--bg-card); border-radius: 12px; padding: 20px; border: 1px solid var(--border); display: flex; align-items: flex-start; gap: 16px; }
+    .resume-award-icon { font-size: 32px; }
+    .resume-award-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .resume-award-org { font-size: 13px; color: var(--text-muted); }
+
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
@@ -1078,6 +1105,7 @@
       <li><a href="#achievements">Achievements</a></li>
       <li><a href="#certs">Certifications</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#resume">Resume</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -1759,6 +1787,223 @@
             <div class="testimonial-name">SMARTCore Labs</div>
             <div class="testimonial-role">STEM Education Center</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume Section -->
+  <section id="resume">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title fade-in">Professional <span>Resume</span></h2>
+        <p class="section-subtitle fade-in">Detailed overview of my experience and qualifications</p>
+      </div>
+    </div>
+    <div class="resume-container">
+      <div class="resume-header fade-in">
+        <h3>ARJUN SHARMA</h3>
+        <p>Software Engineer · AI Developer · Robotics Competitor | Houston, TX | Codewars: 4 kyu · USACO Competitor · LeetCode Active</p>
+        <a href="#" class="resume-download"><i class="fas fa-download"></i> Download Resume</a>
+      </div>
+
+      <div class="resume-section fade-in">
+        <h4 class="resume-section-title">Professional Summary</h4>
+        <div class="resume-item">
+          <p class="resume-item-desc">
+            Driven 8th-grade student in a Gifted & Talented program with 2–3 years of Python programming experience and a strong foundation in software engineering, machine learning, cryptography, and robotics. Independently built machine learning models, encryption algorithms, and deployed games using Lua. Actively pursuing certifications in AI, cybersecurity, and programming through Coursera and TryHackMe. Competed in USACO, TMSCA, and FIRST Lego League. Volunteered 100+ hours at a STEM education center mentoring students in Python, HTML, CSS, Blender, and robotics.
+          </p>
+        </div>
+      </div>
+
+      <div class="resume-section fade-in">
+        <h4 class="resume-section-title">Projects</h4>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div>
+              <div class="resume-item-title">Titanic Survival Prediction — Machine Learning</div>
+              <div class="resume-item-subtitle">Kaggle · Python</div>
+            </div>
+            <div class="resume-item-date">2024</div>
+          </div>
+          <p class="resume-item-desc">Built a supervised binary classification ML model on the Kaggle Titanic dataset to predict passenger survival. Applied full data science pipeline: data cleaning, feature selection, model training, and prediction on unseen data. Gained hands-on experience with core ML workflows used by professional data scientists and ML engineers.</p>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div>
+              <div class="resume-item-title">Roblox Obstacle Course Game — Game Development</div>
+              <div class="resume-item-subtitle">Roblox Studio · Lua</div>
+            </div>
+            <div class="resume-item-date">2024</div>
+          </div>
+          <p class="resume-item-desc">Designed and developed a fully functional obstacle course game using Lua, the native Roblox scripting language. Applied game design principles including player mechanics, event scripting, level design, and live debugging. Demonstrated ability to ship a complete, playable product from concept through deployment.</p>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div>
+              <div class="resume-item-title">AES Encryption Algorithm — Cybersecurity</div>
+              <div class="resume-item-subtitle">Replit IDE · Python</div>
+            </div>
+            <div class="resume-item-date">2024</div>
+          </div>
+          <p class="resume-item-desc">Implemented the Advanced Encryption Standard (AES) encryption algorithm from scratch — the same standard used to secure internet communications worldwide. Applied deep knowledge of cryptographic logic, bitwise operations, and advanced algorithmic design. Reflects an advanced level of algorithmic thinking uncommon at the middle school level.</p>
+        </div>
+      </div>
+
+      <div class="resume-section fade-in">
+        <h4 class="resume-section-title">Technical Skills</h4>
+        <div class="resume-skills-grid">
+          <div class="resume-skill-category">
+            <div class="resume-skill-title">Languages</div>
+            <div class="resume-skill-list">
+              <span class="resume-skill-tag">Python (2-3 yrs)</span>
+              <span class="resume-skill-tag">Lua</span>
+              <span class="resume-skill-tag">HTML</span>
+              <span class="resume-skill-tag">CSS</span>
+            </div>
+          </div>
+          <div class="resume-skill-category">
+            <div class="resume-skill-title">AI / ML</div>
+            <div class="resume-skill-list">
+              <span class="resume-skill-tag">Supervised Learning</span>
+              <span class="resume-skill-tag">Binary Classification</span>
+              <span class="resume-skill-tag">Data Cleaning</span>
+              <span class="resume-skill-tag">Feature Selection</span>
+              <span class="resume-skill-tag">Model Training</span>
+            </div>
+          </div>
+          <div class="resume-skill-category">
+            <div class="resume-skill-title">Cybersecurity</div>
+            <div class="resume-skill-list">
+              <span class="resume-skill-tag">AES Encryption</span>
+              <span class="resume-skill-tag">Cryptographic Logic</span>
+              <span class="resume-skill-tag">Bitwise Operations</span>
+              <span class="resume-skill-tag">TryHackMe</span>
+            </div>
+          </div>
+          <div class="resume-skill-category">
+            <div class="resume-skill-title">Robotics</div>
+            <div class="resume-skill-list">
+              <span class="resume-skill-tag">LEGO EV3</span>
+              <span class="resume-skill-tag">Sensor Programming</span>
+              <span class="resume-skill-tag">Motor Control</span>
+              <span class="resume-skill-tag">FLL Design</span>
+            </div>
+          </div>
+          <div class="resume-skill-category">
+            <div class="resume-skill-title">3D / Design</div>
+            <div class="resume-skill-list">
+              <span class="resume-skill-tag">Blender 3D</span>
+              <span class="resume-skill-tag">2D Modeling</span>
+              <span class="resume-skill-tag">Game Level Design</span>
+            </div>
+          </div>
+          <div class="resume-skill-category">
+            <div class="resume-skill-title">Tools & Platforms</div>
+            <div class="resume-skill-list">
+              <span class="resume-skill-tag">Kaggle</span>
+              <span class="resume-skill-tag">Replit</span>
+              <span class="resume-skill-tag">Roblox Studio</span>
+              <span class="resume-skill-tag">Codewars</span>
+              <span class="resume-skill-tag">LeetCode</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-section fade-in">
+        <h4 class="resume-section-title">Certifications (In Progress)</h4>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div class="resume-item-title">Machine Learning Specialization</div>
+            <div class="resume-item-subtitle">Coursera (Stanford × DeepLearning.AI)</div>
+          </div>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div class="resume-item-title">IBM AI Developer Professional Certificate</div>
+            <div class="resume-item-subtitle">Coursera (IBM)</div>
+          </div>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div class="resume-item-title">Google Cybersecurity Professional Certificate</div>
+            <div class="resume-item-subtitle">Coursera (Google)</div>
+          </div>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div class="resume-item-title">Python for Everybody</div>
+            <div class="resume-item-subtitle">Coursera (University of Michigan)</div>
+          </div>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div class="resume-item-title">TryHackMe Cybersecurity Learning Path</div>
+            <div class="resume-item-subtitle">TryHackMe</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-section fade-in">
+        <h4 class="resume-section-title">Competitive Programming</h4>
+        <div class="resume-awards-grid">
+          <div class="resume-award">
+            <div class="resume-award-icon">🏆</div>
+            <div>
+              <div class="resume-award-title">USACO — USA Computing Olympiad</div>
+              <div class="resume-award-org">National | Silver Division</div>
+            </div>
+          </div>
+          <div class="resume-award">
+            <div class="resume-award-icon">⚔️</div>
+            <div>
+              <div class="resume-award-title">Codewars</div>
+              <div class="resume-award-org">Global Ranking | 4 Kyu (Upper Tier)</div>
+            </div>
+          </div>
+          <div class="resume-award">
+            <div class="resume-award-icon">💻</div>
+            <div>
+              <div class="resume-award-title">LeetCode</div>
+              <div class="resume-award-org">Ongoing | Algo & Data Structures</div>
+            </div>
+          </div>
+          <div class="resume-award">
+            <div class="resume-award-icon">🔢</div>
+            <div>
+              <div class="resume-award-title">TMSCA</div>
+              <div class="resume-award-org">Regional | Math Competitions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-section fade-in">
+        <h4 class="resume-section-title">Volunteer Experience</h4>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div>
+              <div class="resume-item-title">STEM Camp Volunteer</div>
+              <div class="resume-item-subtitle">SMARTCore Labs | Pearland, TX</div>
+            </div>
+            <div class="resume-item-date">Summer 2025, Winter 2025, Spring 2026</div>
+          </div>
+          <p class="resume-item-desc">Accumulated 100+ volunteer hours across three camp sessions at a STEM education center serving 400+ students weekly. Mentored students in Python, HTML, CSS, Blender 3D modeling, robotics, AI fundamentals, game design, and 3D printing. Applied technical expertise in a leadership and mentorship capacity — explaining complex concepts and guiding hands-on project builds.</p>
+        </div>
+      </div>
+
+      <div class="resume-section fade-in">
+        <h4 class="resume-section-title">Education</h4>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div>
+              <div class="resume-item-title">8th Grade — Gifted & Talented Program</div>
+              <div class="resume-item-subtitle">Houston, TX</div>
+            </div>
+            <div class="resume-item-date">2025–2026</div>
+          </div>
+          <p class="resume-item-desc">Enrolled in advanced GT academic track with coursework in mathematics, science, and computer science. Supplementary structured learning via Khan Academy in software engineering and programming fundamentals. Attending Pearland Junior High West, transitioning to Dawson High School in 9th grade.</p>
         </div>
       </div>
     </div>
