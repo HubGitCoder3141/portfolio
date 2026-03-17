@@ -1,0 +1,100 @@
+ARJUN SHARMA
+Software Engineer · AI Developer · Robotics Competitor
+Houston, TX · Codewars: 4 kyu · USACO Competitor · LeetCode Active
+Email: robotadvance2102@gmail.com | GitHub: @HubGitCoder3141
+
+================================================================================
+PROFESSIONAL SUMMARY
+================================================================================
+Driven 8th-grade student in a Gifted & Talented program with 2–3 years of Python 
+programming experience and a strong foundation in software engineering, machine 
+learning, cryptography, and robotics. Independently built machine learning models, 
+encryption algorithms, and deployed games using Lua. Actively pursuing certifications 
+in AI, cybersecurity, and programming through Coursera and TryHackMe. Competed in 
+USACO, TMSCA, and FIRST Lego League. Volunteered 100+ hours at a STEM education 
+center mentoring students in Python, HTML, CSS, Blender, and robotics.
+
+================================================================================
+PROJECTS
+================================================================================
+
+TITANIC SURVIVAL PREDICTION — Machine Learning | Kaggle · Python
+- Built a supervised binary classification ML model on the Kaggle Titanic dataset
+- Applied full data science pipeline: data cleaning, feature selection, model 
+  training, and prediction on unseen data
+- Gained hands-on experience with core ML workflows used by professional data 
+  scientists and ML engineers
+
+ROBLOX OBSTACLE COURSE GAME — Game Development | Roblox Studio · Lua
+- Designed and developed a fully functional obstacle course game using Lua
+- Applied game design principles including player mechanics, event scripting, 
+  level design, and live debugging
+- Demonstrated ability to ship a complete, playable product from concept 
+  through deployment
+
+AES ENCRYPTION ALGORITHM — Cybersecurity | Replit IDE · Python
+- Implemented the Advanced Encryption Standard (AES) from scratch
+- The same standard used to secure internet communications worldwide
+- Applied deep knowledge of cryptographic logic, bitwise operations, and 
+  advanced algorithmic design
+
+================================================================================
+TECHNICAL SKILLS
+================================================================================
+
+Languages:        Python (2-3 yrs), Lua, HTML, CSS
+AI / ML:          Supervised Learning, Binary Classification, Data Cleaning,
+                  Feature Selection, Model Training
+Cybersecurity:    AES Encryption, Cryptographic Logic, Bitwise Operations,
+                  TryHackMe Pathways
+Robotics:         LEGO MINDSTORMS EV3, Sensor & Motor Programming,
+                  FLL Autonomous Robot Design
+3D / Design:      Blender 3D Modeling, 2D Digital Modeling, Game Level Design
+Tools:            Kaggle, Replit, Roblox Studio, Khan Academy, Codewars, LeetCode
+
+================================================================================
+CERTIFICATIONS (IN PROGRESS)
+================================================================================
+- Machine Learning Specialization — Coursera (Stanford × DeepLearning.AI)
+- IBM AI Developer Professional Certificate — Coursera (IBM)
+- Google Cybersecurity Professional Certificate — Coursera (Google)
+- Python for Everybody — Coursera (University of Michigan)
+- TryHackMe Cybersecurity Learning Path — TryHackMe
+
+================================================================================
+COMPETITIVE PROGRAMMING
+================================================================================
+
+USACO — USA Computing Olympiad    | National      | Silver Division
+Codewars                        | Global        | 4 Kyu (Upper Tier)
+LeetCode                        | Ongoing       | Algo & Data Structures
+TMSCA                           | Regional      | Math Competitions
+FIRST Lego League (FLL)         | Regional      | Robotics
+
+================================================================================
+VOLUNTEER EXPERIENCE
+================================================================================
+
+STEM Camp Volunteer — SMARTCore Labs | Pearland, TX
+Summer 2025, Winter 2025, Spring 2026
+
+- Accumulated 100+ volunteer hours across three camp sessions
+- SMARTCore Labs serves 400+ students weekly, trusted by 500+ families
+- Mentored students in Python, HTML, CSS, Blender 3D modeling, robotics, 
+  AI fundamentals, game design, and 3D printing
+- Applied technical expertise in a leadership and mentorship capacity
+
+================================================================================
+EDUCATION
+================================================================================
+
+8th Grade — Gifted & Talented Program | Houston, TX | 2025–2026
+
+- Enrolled in advanced GT academic track with coursework in mathematics, 
+  science, and computer science
+- Supplementary structured learning via Khan Academy in software engineering 
+  and programming fundamentals
+- Attending Pearland Junior High West, transitioning to Dawson High School 
+  in 9th grade
+
+================================================================================
